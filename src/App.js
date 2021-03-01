@@ -19,7 +19,7 @@ function App() {
       <Router>
         <Switch>
 
-          <Route path='/' component={MarketingPage} />
+          <Route exact path='/' component={MarketingPage} />
           <Route path='/login' component={Login} />
           <Route path='/signup' component={Signup} />
 
@@ -28,7 +28,7 @@ function App() {
           <PrivateRoute path='/plant/:id' component={Plant} />
           <PrivateRoute path='/add-plant' component={AddPlant} />
           <PrivateRoute path='/profile' component={Profile} />
-          <PrivateRoute path='/to-be-watered' component={ToBeWatered} />
+          <PrivateRoute path='/needs-watered' component={ToBeWatered} />
 
         </Switch>
       </Router>
