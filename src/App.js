@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-//Routes
+//Route imports
 import PrivateRoute from './components/PrivateRoute';
 import Login from './components/Login';
 import MarketingPage from './components/MarketingPage';
@@ -10,6 +10,7 @@ import MyPlants from './components/MyPlants';
 import Plant from './components/Plant';
 import AddPlant from './components/AddPlant';
 import Profile from './components/Profile';
+import ToBeWatered from './components/ToBeWatered';
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
           <PrivateRoute path='/plant/:id' component={Plant} />
           <PrivateRoute path='/add-plant' component={AddPlant} />
           <PrivateRoute path='/profile' component={Profile} />
+          <PrivateRoute path='/to-be-watered' component={ToBeWatered} />
 
         </Switch>
       </Router>
