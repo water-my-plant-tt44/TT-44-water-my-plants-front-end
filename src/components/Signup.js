@@ -1,9 +1,10 @@
-import React from 'react'
+import React from 'react';
+import LoginSignupNav from './navs/LoginSignupNav';
 
 const Signup = () => {
     return (
         <div>
-            
+            <LoginSignupNav />
         </div>
     )
 }
