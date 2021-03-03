@@ -115,11 +115,11 @@ const AddPlant = (props) => {
     });
   };
 
-  const onChange = (evt) => {
-    const { name, value, type, checked } = evt.target;
-    const valueToUse = type === "checkbox" ? checked : value; // use valueToUse with checkbox, otherwise use value
-    inputChange(name, valueToUse);
-  };
+  // const onChange = (evt) => {
+  //   const { name, value, type, checked } = evt.target;
+  //   const valueToUse = type === "checkbox" ? checked : value; // use valueToUse with checkbox, otherwise use value
+  //   inputChange(name, valueToUse);
+  // };
 
   return (
     <>
@@ -143,8 +143,8 @@ const AddPlant = (props) => {
               id="icon-button-file"
               type="file"
               name="img"
-              value={formValues.img}
-              onChange={onChange}
+              // value={formValues.img}
+              // onChange={onChange}
             />
 
             <label htmlFor="icon-button-file">
@@ -174,8 +174,8 @@ const AddPlant = (props) => {
               <TextField
                 id="filled-size-normal"
                 name="nickname"
-                value={formValues.nickname}
-                onChange={onChange}
+                // value={formValues.nickname}
+                // onChange={onChange}
                 label="Nickname"
                 variant="filled"
                 className={classes.textField}
@@ -189,8 +189,8 @@ const AddPlant = (props) => {
                 id="filled-size-normal"
                 label="Species"
                 name="species"
-                value={formValues.species}
-                onChange={onChange}
+                // value={formValues.species}
+                // onChange={onChange}
                 variant="filled"
                 className={classes.textField}
               />
@@ -216,8 +216,8 @@ const AddPlant = (props) => {
                   type="date"
                   id="date"
                   name="date"
-                  value={formValues.date}
-                  onChange={onChange}
+                  // value={formValues.date}
+                  // onChange={onChange}
                 />
               </label>
             </Grid>
@@ -230,40 +230,39 @@ const AddPlant = (props) => {
                   type="time"
                   id="time"
                   name="time"
-                  value={formValues.time}
-                  onChange={onChange}
+                  // value={formValues.time}
+                  // onChange={onChange}
                 />
               </label>
             </Grid>
 
             <Grid item className={classes.amount}>
               {/* Amount */}
-              <label for="amount">
+              <label for="frequency">
                 <Typography variant='h5'>Amount</Typography>
                 <input
                   type="number"
-                  id="amount"
-                  name="amount"
+                  id="frequency"
+                  name="frequency"
                   min="1"
                   max="7"
-                  value={formValues.amount}
-                  onChange={onChange}
+                  // value={formValues.amount}
+                  // onChange={onChange}
                 />
               </label>
             </Grid>
 
             <Grid item className={classes.select}>
               {/* Frequency */}
-              <label for="freq">
+              <label for="interval">
                 <Typography variant='h5'>Frequency</Typography>
                 <select
                   type="select"
-                  id="freq"
-                  name="freq"
-                  value={formValues.freq}
-                  onChange={onChange}
+                  id="interval"
+                  name="interval"
+                  // value={formValues.freq}
+                  // onChange={onChange}
                 >
-                  <option value="">--Select--</option>
                   <option value="DAILY">Daily</option>
                   <option value="WEEKLY">Weekly</option>
                   <option value="MONTHLY">Monthly</option>
@@ -283,13 +282,13 @@ const AddPlant = (props) => {
         >
           <Grid item>
             {/* Save */}
-            <Button onChange={onChange} className={classes.button}>
+            <Button /*onChange={onChange}*/ className={classes.button}>
               Save
             </Button>
           </Grid>
           <Grid item>
             {/* Delete */}
-            <Button onChange={onChange} className={classes.button}>
+            <Button /*onChange={onChange}*/ className={classes.button}>
               Delete
             </Button>
           </Grid>

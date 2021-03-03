@@ -12,32 +12,66 @@ import {
   makeStyles
 } from "@material-ui/core";
 
+// material ui icons
 import { Visibility, VisibilityOff, AccountCircle } from "@material-ui/icons";
+
 
 const useStyles = makeStyles({
   root: {
+    width: "100%",
     flexFlow: "column wrap",
-    alignItems: "center"
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundImage: 'url("https://images.pexels.com/photos/807598/pexels-photo-807598.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260")',
+    height: '90vh'
+  },
+  title: {
+    marginTop: "2%",
+    marginBottom: "2%"
   },
   form: {
-    width: "50%"
-    // border: "1px solid red"
+    width: "30%",
+    padding: "2%"
   },
-  formGrid: {
+  card: {
+    flexFlow: "column wrap",
+    alignItems: "center",
+    backgroundColor: "#B3BE9F",
+    padding: "2%",
+    borderRadius: "10px"
+  },
+  inputGrid: {
+    width: "100%",
+    marginBottom: "3%",
+    marginTop: "3%"
+  },
+  loginButton: {
+    marginTop: "2%",
+    marginBottom: "2%"
+  },
+  newUserWrapper: {
+    width: "100%",
     flexFlow: "column wrap",
     alignItems: "center"
-    // border: "1px solid red"
   },
-  formGridItem: {
-    width: "100%"
-    // border: "1px solid red"
+  newUserContainer: {
+    paddingTop: "1%",
+    flexFlow: "column wrap",
+    alignItems: "center"
+  },
+  newUserItem: {
+    marginTop: "1%",
+    marginBottom: "1%"
+  },
+  signUpButton: {
+    borderColor: "white",
+    color: "white"
   }
 });
 
 const initialShowPassword = false;
 
 const Login = (props) => {
-
   // const { change, values, errors, disabled } = props;
 
   const classes = useStyles();
@@ -49,22 +83,19 @@ const Login = (props) => {
   //   change(name, value);
   // };
 
-//   console.log(values);
-
-const handleSubmit = (e) => {
-  e.preventDefault();
-}
-
   return (
     <>
     <LoginSignupNav />
+      {/* root container */}
       <Grid container className={classes.root}>
-        <form className={classes.form} onSubmit={handleSubmit}>
-          <Grid container className={classes.formGrid}>
-            <Grid item>
+        {/* form container */}
+        <form className={classes.form}>
+          {/* form items-container */}
+          <Grid container className={classes.card}>
+            <Grid item className={classes.title}>
               <Typography variant="h2">Login</Typography>
             </Grid>
-            <Grid item className={classes.formGridItem}>
+            <Grid item className={classes.inputGrid}>
               <TextField
                 fullWidth
                 required
@@ -86,7 +117,7 @@ const handleSubmit = (e) => {
                 }}
               />
             </Grid>
-            <Grid item className={classes.formGridItem}>
+            <Grid item className={classes.inputGrid}>
               <TextField
                 fullWidth
                 required
@@ -109,15 +140,32 @@ const handleSubmit = (e) => {
               />
             </Grid>
             <Grid item>
-              <Button variant="contained" /*disabled={disabled}*/>
+              <Button
+                className={classes.loginButton}
+                size="large"
+                variant="contained"
+                // disabled={disabled}
+              >
                 Login
               </Button>
             </Grid>
-            <Grid item>
-              <Typography variant="span">New user?</Typography>
-            </Grid>
-            <Grid item>
-              <Button variant="outlined">Sign-Up</Button>
+            <Grid item className={classes.newUserWrapper}>
+              <Grid container className={classes.newUserContainer}>
+                <Grid item className={classes.newUserItem}>
+                  <Typography variant="subtitle1">
+                    Don't have an account?
+                  </Typography>
+                </Grid>
+                <Grid item className={classes.newUserItem}>
+                  <Button
+                    className={classes.signUpButton}
+                    size="large"
+                    variant="outlined"
+                  >
+                    Sign-Up
+                  </Button>
+                </Grid>
+              </Grid>
             </Grid>
           </Grid>
         </form>

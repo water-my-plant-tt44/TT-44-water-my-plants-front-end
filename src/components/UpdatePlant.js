@@ -8,7 +8,7 @@ const StyledCP = styled.div
 `
     text-align:center;
 `
-//constructor
+
 const UpdatePlant = (props) => {
     // const {handleChange, handleClick, handleSubmit, plant} = props;
     return(
@@ -44,12 +44,13 @@ const UpdatePlant = (props) => {
                             />
                     <p>Frequency:</p>
                     <select name="interval" 
+                            id="interval"
                             // onChange={handleChange} 
                             // value= {plant.frequency}>
                             >
-                            <option value='daily'>daily</option>
-                            <option value='weekly'>weekly</option>
-                            <option value='montly'>montly</option>
+                            <option value='DAILY'>daily</option>
+                            <option value='WEEKLY'>weekly</option>
+                            <option value='MONTHLY'>monthly</option>
                     </select>
                     <br/>
                     <br/>
