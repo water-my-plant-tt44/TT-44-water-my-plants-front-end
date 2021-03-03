@@ -1,13 +1,13 @@
 import React from 'react';
-// import Signup from './Signup';
+import Signup from './Signup';
 
 const MarketingPage = () => {
 
     return (
         <div>
             {/* testing  */}
-            {/* <h1>Marketing Page</h1>
-            <Signup /> */}
+            <h1>Marketing Page</h1>
+            <Signup />
         </div>
     )
 }
