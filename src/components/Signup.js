@@ -4,9 +4,9 @@ import { connect } from "react-redux";
 import {userSignUpSubmit} from '../actions/authActions'
 
 const initialSignUp = {
-    username: "uzii",
-    phoneNumber: "123456789",
-    password: "123415415654",
+    username: "uziiiiiiii",
+    phoneNumber: "12345678909",
+    password: "123415415654456",
 };
 
 const SignUp = ({ userSignUpSubmit }) => {
