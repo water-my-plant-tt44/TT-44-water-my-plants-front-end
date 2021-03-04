@@ -15,7 +15,7 @@ export const userSignUpSubmit = (form) => (dispatch) => {
       .post("https://water-my-plant-tt44.herokuapp.com/api/auth/register", form)
       .then((res) => {
         console.log("SPECIFIC USER DATA:", res.data);
-        dispatch({ type: USER_LOGGED_IN, payload: res.data });
+        dispatch({ type: USER_SIGNED_UP, payload: res.data });
       })
       .catch((err) => {
         console.log("ERROR BEFORE REDUCER", err.message);
@@ -27,10 +27,10 @@ export const userLoginSubmit = (form) => (dispatch) => {
     axios
       .post("https://water-my-plant-tt44.herokuapp.com/api/auth/login", form)
       .then((res) => {
-        console.log("SPECIFIC USER DATA:", res.data);
+        console.log("SPECIFIC USERNAME:", res.data.username);
         localStorage.setItem('token', res.data.token);
         console.log('token',localStorage.getItem("token"))
-        dispatch({ type: USER_SIGNED_UP, payload: res.data });
+        dispatch({ type: USER_LOGGED_IN, payload: res.data });
       })
       .catch((err) => {
         console.log("ERROR BEFORE REDUCER", err.message);

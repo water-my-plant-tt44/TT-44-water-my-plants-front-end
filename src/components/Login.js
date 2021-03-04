@@ -23,20 +23,20 @@ const Login = ({ userLoginSubmit }) => {
     console.log('inside handleSubmit')
     userLoginSubmit(loginForm);
     console.log('after userLoginSubmit')
-    history.push("/");
+    history.push("/myplants");
   };
 
   return (
     <section className="login-page">
       <div >
-        <h3 >LOGIN</h3>
+        <h3>LOGIN</h3>
         <button onClick={() => history.push("/")}>
           HOME
         </button>
       </div>
       <form onSubmit={handleSubmit} >
       
-        <h3 >EXISTING USERS</h3>
+        <h3>EXISTING USERS</h3>
         <label>
           <input
             type="username"

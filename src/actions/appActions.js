@@ -1,4 +1,4 @@
-import axiosWithAuth from "../utils/axiosWithAuth";
+import {axiosWithAuth} from "../utils/axiosWithAuth";
 
 export const CREATE_PLANT = "CREATE_PLANT";
 export const DELETE_PLANT = "DELETE_PLANT";
@@ -9,10 +9,10 @@ export const GET_PLANT_INFO = "GET_PLANT_INFO";
 //action creators returning action objects
 // use dispatch!
 
-export const getUser = () => (dispatch) => {
+export const getUser = (id) => (dispatch) => {
   console.log("getUser action");
   axiosWithAuth()
-    .get("/users/3") // make dynamic w/ userID
+    .get(`/users/${id}`) // make dynamic w/ userID
     .then((res) => {
       console.log("SPECIFIC USER DATA:", res.data);
       dispatch({ type: GET_USER_INFO, payload: res.data });

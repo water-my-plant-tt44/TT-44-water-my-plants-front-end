@@ -11,6 +11,7 @@ const initialState = {
       username: "",
       phoneNumber: "",
       password: "",
+      user_id: ""
     },
   };
   
@@ -18,18 +19,19 @@ const initialState = {
     switch (action.type) {
         case USER_SIGNED_UP:
             return {
-                ...state,
+                // ...state,
                 username: action.payload.username,
                 password: action.payload.password,
                 phoneNumber: action.payload.phoneNumber,
             };
         case USER_LOGGED_IN:
             return {
-                ...state,
+                // ...state,
                 username: action.payload.username,
                 password: action.payload.password,
+                user_id: action.payload.user_id,
             };
-            
+
         case USER_UPDATE_PHONE_NUMBER:
             return {
                 ...state,

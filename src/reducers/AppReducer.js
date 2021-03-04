@@ -7,11 +7,14 @@ const initialState = {
     plants: [ {
         id: "", // string or int?
         nickname: "",
-        species: "",
-        h2oFrequency: "", // need to determine, dropdown?
+        species_name: "",
+        h2oFrequency: "", // need to determine, dropdown? Check with Ruben
+        interval_type_name: "",
+        next_watering_date: "", // based on interval
         image: "" //optional
         },
     ],
+
   };
 
   // ADD, EDIT, DELETE PLANT
