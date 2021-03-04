@@ -161,6 +161,7 @@ const Login = ({userLoginSubmit}) => {
               className={`${classes.paperItem}`}
               size="large"
               variant="outlined"
+              onClick={() => {history.push('/signup')}}
             >
               Sign-Up
             </Button>
