@@ -2,16 +2,16 @@ import React from 'react'
 import { getUser } from '../actions/appActions';
 import { connect } from "react-redux";
 
-const initial = {
-    id: "",
-}
-
-const Profile = ({ getUser, state }) => {
+const Profile = (props) => {
 // pass in id to getUser to fetch correct user profile
-    getUser(state.user.user_id);
+
+const { getUser, id } = props;
+
+    getUser(id);
 
     return (
         <div>
+            <h1>Here is id: {id}</h1>
             
         </div>
     )
@@ -20,10 +20,10 @@ const Profile = ({ getUser, state }) => {
 const mapStateToProps = (state) => {
     console.log('MSTP state',state);
     return {
-        id: state.user.user_id
+        id: state.auth.user.user_id
     }
   };
   
 
 
-export default connect(mapStateToProps, {getUser})(Profile);
+export default connect(mapStateToProps, {getUser} )(Profile);

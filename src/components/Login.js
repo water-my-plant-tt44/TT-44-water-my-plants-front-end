@@ -1,71 +1,169 @@
-import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { userLoginSubmit } from "../actions/authActions";
 import { connect } from "react-redux";
+import React, { useState } from "react";
+import {Paper,Grid,TextField,Typography,Button,IconButton,makeStyles} from "@material-ui/core";
+import { AccountCircle, Visibility, VisibilityOff } from "@material-ui/icons";
+import leavesBg from "../images/leaves_bg.jpg";
+
+const useStyles = makeStyles({
+  root: {
+    flexFlow: "column wrap",
+    alignItems: "center",
+    backgroundImage: `url(${leavesBg})`,
+    height: "100vh"
+  },
+  paper: {
+    width: "25%",
+    marginTop: "4%",
+    padding: "1%",
+    backgroundColor: "#B3BE9F"
+  },
+  paperItem: {
+    color: "white",
+    marginTop: "4%",
+    marginBottom: "2%",
+    borderColor: "white"
+  },
+  topText: {
+    width: "100%",
+    textAlign: "center"
+  },
+  formGrid: {
+    flexFlow: "column wrap",
+    alignItems: "center"
+  },
+  haveAccount: {
+    flexFlow: "column wrap",
+    alignItems: "center"
+  }
+});
 
 const initialLogin = {
-  username: "Ruben",
-  password: "cheese",
+  username: "test123",
+  password: "00000000",
 };
 
-const Login = ({ userLoginSubmit }) => {
-  const [loginForm, setLoginForm] = useState(initialLogin);
+const initialHelperText = {
+  username: "",
+  password: ""
+};
+
+const Login = ({userLoginSubmit}) => {
+  const classes = useStyles();
   const history = useHistory();
 
+  const [showPassword, setShowPassword] = useState(false);
+  const [values, setValues] = useState(initialLogin);
+  const [helperText, setHelperText] = useState(initialHelperText);
+
+  const handleShowPassword = (e) => {
+    setShowPassword(!showPassword);
+  };
+
   const handleChange = (e) => {
-    const { value, name } = e.target;
-    setLoginForm({ ...initialLogin, [name]: value });
-    console.log("logintest", loginForm);
+    const { name, value } = e.target;
+    setValues({ ...values, [name]: value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('inside handleSubmit')
-    userLoginSubmit(loginForm);
-    console.log('after userLoginSubmit')
-    history.push("/myplants");
+    if (values.username.match(/^\w{5,11}$/g) && values.password.match(/^[.\S]{7,15}$/g)) {
+      setValues(initialLogin);
+      userLoginSubmit(values);
+      setTimeout(() => {
+        history.push("/Profile");
+    }, 3000);
+      //console.log(values);
+    } else {
+      setValues(initialLogin);
+      setHelperText({
+        username: "Invalid Username. Please try again.",
+        password: "Invalid Password. Please try again."
+        });
+    //   return;
+    }
   };
 
   return (
-    <section className="login-page">
-      <div >
-        <h3>LOGIN</h3>
-        <button onClick={() => history.push("/")}>
-          HOME
-        </button>
-      </div>
-      <form onSubmit={handleSubmit} >
-      
-        <h3>EXISTING USERS</h3>
-        <label>
-          <input
-            type="username"
-            name="username"
-            placeholder="USERNAME"
-            value={initialLogin.username}
-            onChange={handleChange}
-            required
-          
-          />
-        </label>
-        <br />
-        <label>
-          <input
-            type="password"
-            name="password"
-            onChange={handleChange}
-            value={initialLogin.password}
-            placeholder="PASSWORD"
-            required
-            
-          />
-        </label>
-        <br />
-        <button onClick={handleSubmit}>
-          Login
-        </button>
-      </form>
-    </section>
+    <>
+      <Grid container className={classes.root}>
+        <Paper className={classes.paper}>
+          <Grid container>
+            <Typography
+              variant="h3"
+              className={`${classes.topText} ${classes.paperItem}`}
+            >
+              Login
+            </Typography>
+          </Grid>
+          <form onSubmit={(e) => handleSubmit(e)}>
+            <Grid container className={classes.formGrid}>
+              <TextField
+                variant="filled"
+                className={`${classes.paperItem}`}
+                fullWidth
+                required
+                helperText={helperText.username}
+                type="text"
+                label="Username"
+                name="username"
+                value={values.username}
+                onChange={handleChange}
+                autoComplete="off"
+                InputProps={{
+                  endAdornment: (
+                    <IconButton>
+                      <AccountCircle />
+                    </IconButton>
+                  )
+                }}
+              />
+              <TextField
+                variant="filled"
+                className={`${classes.paperItem}`}
+                fullWidth
+                required
+                helperText={helperText.password}
+                label="Password"
+                type={showPassword ? "text" : "password"}
+                name="password"
+                value={values.password}
+                onChange={handleChange}
+                autoComplete="off"
+                InputProps={{
+                  endAdornment: (
+                    <IconButton onClick={handleShowPassword}>
+                      {showPassword ? <Visibility /> : <VisibilityOff />}
+                    </IconButton>
+                  )
+                }}
+              />
+              <Button
+                className={`${classes.paperItem}`}
+                size="large"
+                variant="contained"
+                type="submit"
+              >
+                Login
+              </Button>
+            </Grid>
+          </form>
+          <Grid container className={classes.haveAccount}>
+            <Typography className={`${classes.paperItem}`}>
+              Don't have an account?
+            </Typography>
+            <Button
+              className={`${classes.paperItem}`}
+              size="large"
+              variant="outlined"
+            >
+              Sign-Up
+            </Button>
+          </Grid>
+        </Paper>
+      </Grid>
+    </>
   );
 };
 
@@ -77,176 +175,83 @@ export default connect(mapStateToProps, { userLoginSubmit })(Login);
 
 
 
-// // material ui
-// import {
-//   Grid,
-//   TextField,
-//   Typography,
-//   Button,
-//   IconButton,
-//   makeStyles
-// } from "@material-ui/core";
+// import React, { useState } from "react";
+// import { useHistory } from "react-router-dom";
+// import { userLoginSubmit } from "../actions/authActions";
+// import { connect } from "react-redux";
 
-// // material ui icons
-// import { Visibility, VisibilityOff, AccountCircle } from "@material-ui/icons";
+// const initialLogin = {
+//   username: "Ruben",
+//   password: "cheese",
+// };
 
-// // images
-// //import leavesBg from "../pix/leaves2.jpg";
+// const Login = ({ userLoginSubmit }) => {
+//   const [loginForm, setLoginForm] = useState(initialLogin);
+//   const history = useHistory();
 
-// const useStyles = makeStyles({
-//   root: {
-//     width: "100%",
-//     flexFlow: "column wrap",
-//     alignItems: "center",
-//     justifyContent: "center",
-//     //backgroundImage: `url(${leavesBg})`
-//   },
-//   title: {
-//     marginTop: "2%",
-//     marginBottom: "2%"
-//   },
-//   form: {
-//     width: "30%",
-//     padding: "2%"
-//   },
-//   card: {
-//     flexFlow: "column wrap",
-//     alignItems: "center",
-//     backgroundColor: "#B3BE9F",
-//     padding: "2%",
-//     borderRadius: "10px"
-//   },
-//   inputGrid: {
-//     width: "100%",
-//     marginBottom: "3%",
-//     marginTop: "3%"
-//   },
-//   loginButton: {
-//     marginTop: "2%",
-//     marginBottom: "2%"
-//   },
-//   newUserWrapper: {
-//     width: "100%",
-//     flexFlow: "column wrap",
-//     alignItems: "center"
-//   },
-//   newUserContainer: {
-//     paddingTop: "1%",
-//     flexFlow: "column wrap",
-//     alignItems: "center"
-//   },
-//   newUserItem: {
-//     marginTop: "1%",
-//     marginBottom: "1%"
-//   },
-//   signUpButton: {
-//     borderColor: "white",
-//     color: "white"
-//   }
-// });
+//   const handleChange = (e) => {
+//     const { value, name } = e.target;
+//     setLoginForm({ ...initialLogin, [name]: value });
+//     console.log("logintest", loginForm);
+//   };
 
-// const initialShowPassword = false;
-
-// const Login = (props) => {
-//   const { change, values, errors, disabled } = props;
-
-//   const classes = useStyles();
-
-//   const [showPassword, setShowPassword] = useState(initialShowPassword);
-
-//   const handleChange = (evt) => {
-//     const { name, value } = evt.target;
-//     change(name, value);
+//   const handleSubmit = (e) => {
+//     e.preventDefault();
+//     console.log('history', history); 
+//     //console.log('inside handleSubmit')
+//     userLoginSubmit(loginForm, history);
+//     //console.log('after userLoginSubmit')
+//     setTimeout(() => {
+//         history.push("/Profile");
+//       }, 3000);
+//     // history.push("/Profile");
 //   };
 
 //   return (
-//     <>
-//       {/* root container */}
-//       <Grid container className={classes.root}>
-//         {/* form container */}
-//         <form className={classes.form}>
-//           {/* form items-container */}
-//           <Grid container className={classes.card}>
-//             <Grid item className={classes.title}>
-//               <Typography variant="h2">Login</Typography>
-//             </Grid>
-//             <Grid item className={classes.inputGrid}>
-//               <TextField
-//                 fullWidth
-//                 required
-//                 autoComplete="off"
-//                 label="Username"
-//                 name="username"
-//                 variant="filled"
-//                 type="text"
-//                 value={values.username}
-//                 onChange={handleChange}
-//                 error={errors.username !== "" ? true : false}
-//                 helperText={errors.username}
-//                 InputProps={{
-//                   endAdornment: (
-//                     <IconButton>
-//                       <AccountCircle />
-//                     </IconButton>
-//                   )
-//                 }}
-//               />
-//             </Grid>
-//             <Grid item className={classes.inputGrid}>
-//               <TextField
-//                 fullWidth
-//                 required
-//                 autoComplete="off"
-//                 type={showPassword ? "text" : "password"}
-//                 name="password"
-//                 label="Password"
-//                 variant="filled"
-//                 value={values.password}
-//                 onChange={handleChange}
-//                 error={errors.password !== "" ? true : false}
-//                 helperText={errors.password}
-//                 InputProps={{
-//                   endAdornment: (
-//                     <IconButton onClick={(e) => setShowPassword(!showPassword)}>
-//                       {showPassword ? <Visibility /> : <VisibilityOff />}
-//                     </IconButton>
-//                   )
-//                 }}
-//               />
-//             </Grid>
-//             <Grid item>
-//               <Button
-//                 className={classes.loginButton}
-//                 size="large"
-//                 variant="contained"
-//                 disabled={disabled}
-//               >
-//                 Login
-//               </Button>
-//             </Grid>
-//             <Grid item className={classes.newUserWrapper}>
-//               <Grid container className={classes.newUserContainer}>
-//                 <Grid item className={classes.newUserItem}>
-//                   <Typography variant="subtitle1">
-//                     Don't have an account?
-//                   </Typography>
-//                 </Grid>
-//                 <Grid item className={classes.newUserItem}>
-//                   <Button
-//                     className={classes.signUpButton}
-//                     size="large"
-//                     variant="outlined"
-//                   >
-//                     Sign-Up
-//                   </Button>
-//                 </Grid>
-//               </Grid>
-//             </Grid>
-//           </Grid>
-//         </form>
-//       </Grid>
-//     </>
+//     <section className="login-page">
+//       <div >
+//         <h3>LOGIN</h3>
+//         <button onClick={() => history.push("/")}>
+//           HOME
+//         </button>
+//       </div>
+//       <form onSubmit={(e) => handleSubmit(e)} >
+      
+//         <h3>EXISTING USERS</h3>
+//         <label>
+//           <input
+//             type="username"
+//             name="username"
+//             placeholder="USERNAME"
+//             value={initialLogin.username}
+//             onChange={handleChange}
+//             required
+          
+//           />
+//         </label>
+//         <br />
+//         <label>
+//           <input
+//             type="password"
+//             name="password"
+//             onChange={handleChange}
+//             value={initialLogin.password}
+//             placeholder="PASSWORD"
+//             required
+            
+//           />
+//         </label>
+//         <br />
+//         <button onClick={handleSubmit}>
+//           Login
+//         </button>
+//       </form>
+//     </section>
 //   );
 // };
 
-// export default Login;
+// const mapStateToProps = (state) => {
+//   return state;
+// };
+
+// export default connect(mapStateToProps, { userLoginSubmit })(Login);

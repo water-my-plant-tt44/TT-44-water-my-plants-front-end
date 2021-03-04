@@ -27,10 +27,12 @@ export const userLoginSubmit = (form) => (dispatch) => {
     axios
       .post("https://water-my-plant-tt44.herokuapp.com/api/auth/login", form)
       .then((res) => {
-        console.log("SPECIFIC USERNAME:", res.data.username);
+        console.log("SPECIFIC USER-ID:", res.data.user_id);
         localStorage.setItem('token', res.data.token);
         console.log('token',localStorage.getItem("token"))
         dispatch({ type: USER_LOGGED_IN, payload: res.data });
+        // history.push("/Profile");
+        
       })
       .catch((err) => {
         console.log("ERROR BEFORE REDUCER", err.message);
