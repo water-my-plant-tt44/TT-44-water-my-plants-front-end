@@ -89,6 +89,8 @@ const Login = ({userLoginSubmit}) => {
 
   return (
     <>
+    {/* added this after merge */}
+    <LoginSignupNav /> 
       <Grid container className={classes.root}>
         <Paper className={classes.paper}>
           <Grid container>

@@ -8,18 +8,17 @@ const useStyles = makeStyles({
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
-    marginRight: "1.5%",
     paddingLeft: "1.5%",
-    paddingRight: "1.5%",
+    paddingRight: "1%",
     background: "#B3BE9F",
     maxWidth: "100%",
-    margin: "0 auto",
+    margin: "0",
   },
   linkStyles: {
     textDecoration: "none",
     paddingTop: "1%",
     paddingBottom: "1%",
-    paddingRight: "3%",
+    paddingRight: "5%",
     paddingLeft: "3%",
   },
   buttonStyles: {
@@ -27,7 +26,7 @@ const useStyles = makeStyles({
     fontFamily: "Saira",
   },
   divStyles: {
-    width: "50%",
+    width: "60%",
   },
   pStyles: {
     fontSize: "1.4rem",
