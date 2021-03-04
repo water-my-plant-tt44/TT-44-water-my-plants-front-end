@@ -42,8 +42,8 @@ const useStyles = makeStyles({
 });
 
 const initialLogin = {
-  username: "test123",
-  password: "00000000",
+  username: "test1234",
+  password: "12345678",
 };
 
 const initialHelperText = {

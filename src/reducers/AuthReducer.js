@@ -35,7 +35,7 @@ const initialState = {
                     user : {
                         ...state.user,
                         username: action.payload.username,
-                        // password: action.payload.password,
+                        password: action.payload.password,
                         phoneNumber: action.payload.phoneNumber,
                         user_id: action.payload.user_id,
                     }
