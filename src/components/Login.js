@@ -1,121 +1,169 @@
-// React
-import React from "react";
-import LoginSignupNav from './navs/LoginSignupNav';
-import { Formik, Form, Field, ErrorMessage } from "formik";
-// material ui
-import {
-  Paper,
-  Grid,
-  Button,
-  Typography,
-  TextField,
-  makeStyles
-} from "@material-ui/core";
-
-// material ui icons
-import { Visibility, VisibilityOff, AccountCircle } from "@material-ui/icons";
+import { useHistory } from "react-router-dom";
+import { userLoginSubmit } from "../actions/authActions";
+import { connect } from "react-redux";
+import React, { useState } from "react";
+import {Paper,Grid,TextField,Typography,Button,IconButton,makeStyles} from "@material-ui/core";
+import { AccountCircle, Visibility, VisibilityOff } from "@material-ui/icons";
+import leavesBg from "../images/leaves_bg.jpg";
+import LoginSignupNav from './navs/LoginSignupNav'; // add header!!
 
 
 const useStyles = makeStyles({
   root: {
-    width: "100%",
     flexFlow: "column wrap",
     alignItems: "center",
-    justifyContent: "center",
-    backgroundImage: 'url("https://images.pexels.com/photos/807598/pexels-photo-807598.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260")',
-    height: '90vh',
+    backgroundImage: `url(${leavesBg})`,
+    height: "100vh"
   },
-  card: {
-    borderRadius: "10px",
-    width: "100%",
-    backgroundColor: "#B3BE9F",
+  paper: {
+    width: "25%",
+    marginTop: "4%",
     padding: "1%",
-    flexFlow: "column wrap",
-    alignItems: "center"
+    backgroundColor: "#B3BE9F"
   },
-  title: {
+  paperItem: {
+    color: "white",
+    marginTop: "4%",
+    marginBottom: "2%",
+    borderColor: "white"
+  },
+  topText: {
+    width: "100%",
     textAlign: "center"
   },
   formGrid: {
-    width: "35vw",
     flexFlow: "column wrap",
-    alignItems: "center",
-    padding: "5%",
-    paddingBottom: "2%"
+    alignItems: "center"
   },
-  field: {
-    marginTop: "2%",
-    marginBottom: "2%"
-  },
-  needAccount: {
+  haveAccount: {
     flexFlow: "column wrap",
-    alignItems: "center",
-    paddingBottom: "2%"
+    alignItems: "center"
   }
 });
 
-const Login = (props) => {
+const initialLogin = {
+  username: "test1234",
+  password: "12345678",
+};
+
+const initialHelperText = {
+  username: "",
+  password: ""
+};
+
+const Login = ({userLoginSubmit}) => {
   const classes = useStyles();
+  const history = useHistory();
 
-  const { initialValues, validationSchema } = props;
+  const [showPassword, setShowPassword] = useState(false);
+  const [values, setValues] = useState(initialLogin);
+  const [helperText, setHelperText] = useState(initialHelperText);
 
-  const onSubmit = (values) => {
-    console.log(values);
+  const handleShowPassword = (e) => {
+    setShowPassword(!showPassword);
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setValues({ ...values, [name]: value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (values.username.match(/^\w{5,11}$/g) && values.password.match(/^[.\S]{7,15}$/g)) {
+      setValues(initialLogin);
+      userLoginSubmit(values);
+      setTimeout(() => {
+        history.push("/Profile");
+    }, 3000);
+      //console.log(values);
+    } else {
+      setValues(initialLogin);
+      setHelperText({
+        username: "Invalid Username. Please try again.",
+        password: "Invalid Password. Please try again."
+        });
+    //   return;
+    }
   };
 
   return (
     <>
-    <LoginSignupNav />
+    {/* added this after merge */}
+    <LoginSignupNav /> 
       <Grid container className={classes.root}>
-        <Paper>
-          <Grid className={classes.card}>
-          <Grid item>
-            <Typography className={classes.title} variant="h2">
+        <Paper className={classes.paper}>
+          <Grid container>
+            <Typography
+              variant="h3"
+              className={`${classes.topText} ${classes.paperItem}`}
+            >
               Login
             </Typography>
           </Grid>
-          <Formik
-            initialValues={initialValues}
-            validationSchema={validationSchema}
-            onSubmit={onSubmit}
-          >
-            {(props) => (
-              <Form>
-                {console.log('this is props for form',props)}
-                <Grid container className={classes.formGrid}>
-                  <Field
-                    className={classes.field}
-                    required
-                    fullWidth
-                    as={TextField}
-                    name="username"
-                    label="Username"
-                    helperText={<ErrorMessage name="username" />}
-                    // value={props.values.username}
-                    autoComplete="off"
-                  />
-                  <Field
-                    className={classes.field}
-                    required
-                    fullWidth
-                    as={TextField}
-                    name="password"
-                    label="Password"
-                    helperText={<ErrorMessage name="password" />}
-                    // value={props.values.password}
-                    autoComplete="off"
-                  />
-                  <Button variant="contained" type="submit">
-                    Login
-                  </Button>
-                </Grid>
-              </Form>
-            )}
-          </Formik>
-          <Grid container className={classes.needAccount}>
-            <Typography variant="subtitle1">Don't have an account?</Typography>
-            <Button variant="contained">Sign-Up</Button>
-          </Grid>
+          <form onSubmit={(e) => handleSubmit(e)}>
+            <Grid container className={classes.formGrid}>
+              <TextField
+                variant="filled"
+                className={`${classes.paperItem}`}
+                fullWidth
+                required
+                helperText={helperText.username}
+                type="text"
+                label="Username"
+                name="username"
+                value={values.username}
+                onChange={handleChange}
+                autoComplete="off"
+                InputProps={{
+                  endAdornment: (
+                    <IconButton>
+                      <AccountCircle />
+                    </IconButton>
+                  )
+                }}
+              />
+              <TextField
+                variant="filled"
+                className={`${classes.paperItem}`}
+                fullWidth
+                required
+                helperText={helperText.password}
+                label="Password"
+                type={showPassword ? "text" : "password"}
+                name="password"
+                value={values.password}
+                onChange={handleChange}
+                autoComplete="off"
+                InputProps={{
+                  endAdornment: (
+                    <IconButton onClick={handleShowPassword}>
+                      {showPassword ? <Visibility /> : <VisibilityOff />}
+                    </IconButton>
+                  )
+                }}
+              />
+              <Button
+                className={`${classes.paperItem}`}
+                size="large"
+                variant="contained"
+                type="submit"
+              >
+                Login
+              </Button>
+            </Grid>
+          </form>
+          <Grid container className={classes.haveAccount}>
+            <Typography className={`${classes.paperItem}`}>
+              Don't have an account?
+            </Typography>
+            <Button
+              className={`${classes.paperItem}`}
+              size="large"
+              variant="outlined"
+            >
+              Sign-Up
+            </Button>
           </Grid>
         </Paper>
       </Grid>
@@ -123,4 +171,8 @@ const Login = (props) => {
   );
 };
 
-export default Login;
+const mapStateToProps = (state) => {
+  return state;
+};
+
+export default connect(mapStateToProps, { userLoginSubmit })(Login);

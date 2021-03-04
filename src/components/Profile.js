@@ -3,6 +3,8 @@ import PlantNav from './navs/PlantNav';
 import { Grid, Button, Typography } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/styles';
+import { connect } from 'react-redux';
+import { getUser } from '../actions/appActions';
 
 const useStyles = makeStyles({
     root: {
@@ -28,7 +30,9 @@ const useStyles = makeStyles({
     }
 })
 
-function Profile() {
+function Profile(props) {
+
+    const { getUser, id } = props; 
 
     const { push } = useHistory();
     const classes = useStyles();
@@ -67,4 +71,13 @@ function Profile() {
     )
 }
 
-export default Profile;
+const mapStateToProps = (state) => {
+    console.log('MSTP state',state);
+    return {
+        id: state.auth.user.user_id
+    }
+  };
+  
+
+
+export default connect(mapStateToProps, {getUser} )(Profile);
