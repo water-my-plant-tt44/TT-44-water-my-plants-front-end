@@ -2,6 +2,8 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles({
   navStyles: {
@@ -39,17 +41,12 @@ const useStyles = makeStyles({
 
 const PlantNav = () => {
   const classes = useStyles();
+  const { push } = useHistory();
 
-  //   const logout = () => {
-  //     axiosWithAuth()
-  //     .post('/api/logout')
-  //     .then(() => {
-  //       //remove the token from localStorage
-  //       //re-route to home
-  //       localStorage.removeItem('token')
-  //       history.push('/')
-  //     });
-  //   };
+    const logout = () => {
+        localStorage.removeItem('token');
+        push('/');
+    };
 
   return (
     <div className={classes.navStyles}>
@@ -69,7 +66,7 @@ const PlantNav = () => {
         <NavLink to="/profile" className={classes.linkStyles}>
           <Button className={classes.buttonStyles}>Profile</Button>
         </NavLink>
-        <NavLink to="/" /*{onClick={logout}}*/ className={classes.linkStyles}>
+        <NavLink to="/" onClick={logout} className={classes.linkStyles}>
           <Button className={classes.buttonStyles}>Logout</Button>
         </NavLink>
       </div>
@@ -77,4 +74,4 @@ const PlantNav = () => {
   );
 };
 
-export default PlantNav;
+export default connect(null, {})(PlantNav);

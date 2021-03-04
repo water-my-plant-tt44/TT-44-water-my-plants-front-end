@@ -32,7 +32,8 @@ const useStyles = makeStyles({
 
 function Profile(props) {
 
-    const { getUser, id } = props; 
+    const { getUser, id, username } = props; 
+    console.log('props', props);
 
     const { push } = useHistory();
     const classes = useStyles();
@@ -53,7 +54,7 @@ function Profile(props) {
             <Grid container className={classes.root}>
                 <Grid item>
                     <Typography variant='h3'>
-                        Welcome To Your Profile!
+                        Welcome {username}!
                     </Typography>
                 </Grid>
                 <Grid item className={classes.container1}>
@@ -74,7 +75,8 @@ function Profile(props) {
 const mapStateToProps = (state) => {
     console.log('MSTP state',state);
     return {
-        id: state.auth.user.user_id
+        id: state.auth.user.user_id,
+        username: state.auth.user.username
     }
   };
   

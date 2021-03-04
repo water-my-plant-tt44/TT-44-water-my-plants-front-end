@@ -25,7 +25,7 @@ function App() {
           <Route exact path='/' component={Signup} />
 
           <Route path='/login' component={Login} />
-          {/* <Route path='/signup' component={Signup} /> */}
+          <Route path='/signup' component={Signup} />
 
            {/* private routes after sign up/login  */}
           <PrivateRoute path='/myplants' component={MyPlants} />
