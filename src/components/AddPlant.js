@@ -1,15 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import PlantNav from './navs/PlantNav'
-// import SimpleSelect from "./components/Select";
 import { Button, Typography } from "@material-ui/core";
-// import DeleteIcon from "@material-ui/icons/Delete";
-// import SaveIcon from "@material-ui/icons/Save";
-import AddPlantSchema from './schemas/AddPlantSchema';
 import TextField from "@material-ui/core/TextField";
 import IconButton from "@material-ui/core/IconButton";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
 import Grid from "@material-ui/core/Grid";
-import * as yup from "yup";
 
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -63,63 +58,8 @@ const useStyles = makeStyles({
 });
 
 
-const initialFormValues = {
-  //intial form values
-  nickname: "",
-  species: "",
-  date: "",
-  time: "",
-  frequency: "",
-  interval: "",
-  img: ""
-};
-const initialFormErrors = {
-  //intial form errors
-  nickname: "",
-  species: "",
-  date: "",
-  time: "",
-  frequency: "",
-  interval: "",
-  img: ""
-};
-
-const initialDisabled = false; //button disabled intially
-
 const AddPlant = (props) => {
   const classes = useStyles();
-  // const [plant, setPlant] = useState([]);
-  const [formValues, setFormValues] = useState(initialFormValues);
-  const [formErrors, setFormErrors] = useState(initialFormErrors);
-  // const [disabled, setDisabled] = useState(initialDisabled);
-  // const [photo, setPhoto] = useState("");
-
-  // useEffect(() => {
-  //   //whenever form values change, check schema validation, then disable/enable button accordingly
-  //   Schema.isValid(formValues).then((valid) => setDisabled(!valid));
-  // }, [formValues]);
-
-  const inputChange = (name, value) => {
-    yup
-      .reach(AddPlantSchema, name)
-      .validate(value)
-      .then(() => {
-        setFormErrors({ ...formErrors, [name]: "" });
-      })
-      .catch((err) => {
-        setFormErrors({ ...formErrors, [name]: err.errors[0] });
-      });
-    setFormValues({
-      ...formValues,
-      [name]: value
-    });
-  };
-
-  // const onChange = (evt) => {
-  //   const { name, value, type, checked } = evt.target;
-  //   const valueToUse = type === "checkbox" ? checked : value; // use valueToUse with checkbox, otherwise use value
-  //   inputChange(name, valueToUse);
-  // };
 
   return (
     <>
@@ -180,7 +120,6 @@ const AddPlant = (props) => {
                 variant="filled"
                 className={classes.textField}
               />
-              <div className="errors">{formErrors.nickname}</div>
             </Grid>
 
             <Grid item>
@@ -194,7 +133,6 @@ const AddPlant = (props) => {
                 variant="filled"
                 className={classes.textField}
               />
-              <div className="errors">{formErrors.species}</div>
             </Grid>
           </Grid>
 

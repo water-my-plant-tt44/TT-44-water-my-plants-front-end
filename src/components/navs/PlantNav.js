@@ -9,7 +9,7 @@ const useStyles = makeStyles({
     alignItems: "center",
     justifyContent: "space-between",
     paddingLeft: "1.5%",
-    paddingRight: "1.5%",
+    paddingRight: "1%",
     background: "#B3BE9F",
     maxWidth: "100%",
     margin: "0",
@@ -26,7 +26,7 @@ const useStyles = makeStyles({
     fontFamily: "Saira",
   },
   divStyles: {
-    width: "50%",
+    width: "60%",
   },
   pStyles: {
     fontSize: "1.4rem",

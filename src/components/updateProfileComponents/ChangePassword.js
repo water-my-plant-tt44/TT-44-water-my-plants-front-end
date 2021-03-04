@@ -7,13 +7,12 @@ const StyledCP = styled.div
 `
     text-align:center;
 `
-//constructor
+
 const ChangePassword = (props) => {
-    // const {handleChange, handleClick, handleSubmit, profile} = props;
+    
     return(
-        <StyledCP /*onSubmit={handleSubmit}*/>
+        <StyledCP>
             <form>
-                {/* <h2>{profile.username}</h2> */}
                 <p>Change Password:</p>
                 <input  type="password" 
                         name="password" 

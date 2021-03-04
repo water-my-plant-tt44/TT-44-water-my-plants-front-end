@@ -9,10 +9,11 @@ import Signup from './components/Signup';
 import MyPlants from './components/MyPlants';
 import Plant from './components/Plant';
 import AddPlant from './components/AddPlant';
-import Profile from './components/Profile';
 import ToBeWatered from './components/ToBeWatered';
-import UpdateProfile from './components/UpdateProfile';
+import Profile from './components/Profile';
 import UpdatePlant from './components/UpdatePlant';
+import UpdatePassword from './components/UpdatePassword';
+import UpdatePhoneNumber from './components/UpdatePhoneNumber';
 
 
 function App() {
@@ -30,8 +31,9 @@ function App() {
           <PrivateRoute path='/plant/:id' component={Plant} />
           <PrivateRoute path='/add-plant' component={AddPlant} />
           <PrivateRoute path='/update-plant' component={UpdatePlant} />
+          <PrivateRoute path='/update-password' component={UpdatePassword} /> 
+          <PrivateRoute path='/update-phoneNumber' component={UpdatePhoneNumber} /> 
           <PrivateRoute path='/profile' component={Profile} />
-          <PrivateRoute path='/update-profile' component={UpdateProfile} />
           <PrivateRoute path='/needs-watered' component={ToBeWatered} />
 
         </Switch>

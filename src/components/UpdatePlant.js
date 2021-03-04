@@ -43,7 +43,7 @@ const UpdatePlant = (props) => {
                             // value={plant.amount}
                             />
                     <p>Frequency:</p>
-                    <select name="interval" 
+                    <select name="interval_type_name" 
                             id="interval"
                             // onChange={handleChange} 
                             // value= {plant.frequency}>

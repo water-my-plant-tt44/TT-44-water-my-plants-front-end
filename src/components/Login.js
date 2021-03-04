@@ -1,14 +1,14 @@
 // React
-import React, { useState } from "react";
+import React from "react";
 import LoginSignupNav from './navs/LoginSignupNav';
-
+import { Formik, Form, Field, ErrorMessage } from "formik";
 // material ui
 import {
+  Paper,
   Grid,
-  TextField,
-  Typography,
   Button,
-  IconButton,
+  Typography,
+  TextField,
   makeStyles
 } from "@material-ui/core";
 
@@ -23,152 +23,101 @@ const useStyles = makeStyles({
     alignItems: "center",
     justifyContent: "center",
     backgroundImage: 'url("https://images.pexels.com/photos/807598/pexels-photo-807598.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260")',
-    height: '90vh'
-  },
-  title: {
-    marginTop: "2%",
-    marginBottom: "2%"
-  },
-  form: {
-    width: "30%",
-    padding: "2%"
+    height: '90vh',
   },
   card: {
+    borderRadius: "10px",
+    width: "100%",
+    backgroundColor: "#B3BE9F",
+    padding: "1%",
+    flexFlow: "column wrap",
+    alignItems: "center"
+  },
+  title: {
+    textAlign: "center"
+  },
+  formGrid: {
+    width: "35vw",
     flexFlow: "column wrap",
     alignItems: "center",
-    backgroundColor: "#B3BE9F",
-    padding: "2%",
-    borderRadius: "10px"
+    padding: "5%",
+    paddingBottom: "2%"
   },
-  inputGrid: {
-    width: "100%",
-    marginBottom: "3%",
-    marginTop: "3%"
-  },
-  loginButton: {
+  field: {
     marginTop: "2%",
     marginBottom: "2%"
   },
-  newUserWrapper: {
-    width: "100%",
+  needAccount: {
     flexFlow: "column wrap",
-    alignItems: "center"
-  },
-  newUserContainer: {
-    paddingTop: "1%",
-    flexFlow: "column wrap",
-    alignItems: "center"
-  },
-  newUserItem: {
-    marginTop: "1%",
-    marginBottom: "1%"
-  },
-  signUpButton: {
-    borderColor: "white",
-    color: "white"
+    alignItems: "center",
+    paddingBottom: "2%"
   }
 });
 
-const initialShowPassword = false;
-
 const Login = (props) => {
-  // const { change, values, errors, disabled } = props;
-
   const classes = useStyles();
 
-  const [showPassword, setShowPassword] = useState(initialShowPassword);
+  const { initialValues, validationSchema } = props;
 
-  // const handleChange = (evt) => {
-  //   const { name, value } = evt.target;
-  //   change(name, value);
-  // };
+  const onSubmit = (values) => {
+    console.log(values);
+  };
 
   return (
     <>
     <LoginSignupNav />
-      {/* root container */}
       <Grid container className={classes.root}>
-        {/* form container */}
-        <form className={classes.form}>
-          {/* form items-container */}
-          <Grid container className={classes.card}>
-            <Grid item className={classes.title}>
-              <Typography variant="h2">Login</Typography>
-            </Grid>
-            <Grid item className={classes.inputGrid}>
-              <TextField
-                fullWidth
-                required
-                autoComplete="off"
-                label="Username"
-                name="username"
-                variant="filled"
-                type="text"
-                // value={values.username}
-                // onChange={handleChange}
-                // error={errors.username !== "" ? true : false}
-                // helperText={errors.username}
-                InputProps={{
-                  endAdornment: (
-                    <IconButton>
-                      <AccountCircle />
-                    </IconButton>
-                  )
-                }}
-              />
-            </Grid>
-            <Grid item className={classes.inputGrid}>
-              <TextField
-                fullWidth
-                required
-                autoComplete="off"
-                type={showPassword ? "text" : "password"}
-                name="password"
-                label="Password"
-                variant="filled"
-                // value={values.password}
-                // onChange={handleChange}
-                // error={errors.password !== "" ? true : false}
-                // helperText={errors.password}
-                InputProps={{
-                  endAdornment: (
-                    <IconButton onClick={(e) => setShowPassword(!showPassword)}>
-                      {showPassword ? <Visibility /> : <VisibilityOff />}
-                    </IconButton>
-                  )
-                }}
-              />
-            </Grid>
-            <Grid item>
-              <Button
-                className={classes.loginButton}
-                size="large"
-                variant="contained"
-                // disabled={disabled}
-              >
-                Login
-              </Button>
-            </Grid>
-            <Grid item className={classes.newUserWrapper}>
-              <Grid container className={classes.newUserContainer}>
-                <Grid item className={classes.newUserItem}>
-                  <Typography variant="subtitle1">
-                    Don't have an account?
-                  </Typography>
-                </Grid>
-                <Grid item className={classes.newUserItem}>
-                  <Button
-                    className={classes.signUpButton}
-                    size="large"
-                    variant="outlined"
-                  >
-                    Sign-Up
+        <Paper>
+          <Grid className={classes.card}>
+          <Grid item>
+            <Typography className={classes.title} variant="h2">
+              Login
+            </Typography>
+          </Grid>
+          <Formik
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+            onSubmit={onSubmit}
+          >
+            {(props) => (
+              <Form>
+                {console.log('this is props for form',props)}
+                <Grid container className={classes.formGrid}>
+                  <Field
+                    className={classes.field}
+                    required
+                    fullWidth
+                    as={TextField}
+                    name="username"
+                    label="Username"
+                    helperText={<ErrorMessage name="username" />}
+                    // value={props.values.username}
+                    autoComplete="off"
+                  />
+                  <Field
+                    className={classes.field}
+                    required
+                    fullWidth
+                    as={TextField}
+                    name="password"
+                    label="Password"
+                    helperText={<ErrorMessage name="password" />}
+                    // value={props.values.password}
+                    autoComplete="off"
+                  />
+                  <Button variant="contained" type="submit">
+                    Login
                   </Button>
                 </Grid>
-              </Grid>
-            </Grid>
+              </Form>
+            )}
+          </Formik>
+          <Grid container className={classes.needAccount}>
+            <Typography variant="subtitle1">Don't have an account?</Typography>
+            <Button variant="contained">Sign-Up</Button>
           </Grid>
-        </form>
+          </Grid>
+        </Paper>
       </Grid>
     </>
   );

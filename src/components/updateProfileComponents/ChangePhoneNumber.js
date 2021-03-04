@@ -7,16 +7,12 @@ const StyledCP = styled.div
 `
     text-align:center;
 `
-//constructor
 
-//notes: phone number passed as string
 const ChangePhoneNumber = (props) =>
 {
-    // const {handleChange, handleClick, handleSubmit, profile} = props;
     return(
-        <StyledCP /*onSubmit={handleSubmit}*/>
+        <StyledCP>
             <form>
-                {/* <h2>{profile.username}</h2> */}
                 <p>Change Phone Number:</p>
                 <input  type="text" 
                         name="phonenumber" 

@@ -1,11 +1,22 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PlantNav from './navs/PlantNav';
+import { axiosWithAuth } from './../utils/axiosWithAuth';
+// import axios from 'axios';
+import { useHistory, useParams } from 'react-router-dom';
 import { makeStyles, Grid, Typography, Button } from '@material-ui/core';
 
 const useStyles = makeStyles({
+    contain: {
+        display: 'flex',
+        width: '20%'
+    },
     gridStyling: {
         margin: '2%',
-        maxWidth: '100%'
+    },
+    gridStyling2: {
+        margin: '2%',
+        display: 'flex',
+        width: '100%'
     },
     container: {
         background: 'lightgray',
@@ -17,7 +28,7 @@ const useStyles = makeStyles({
         paddingTop: '0',
         marginTop: '2%',
         marginRight: '2%',
-        width: '18%',
+        width: '100%',
     },
     h4Styles: {
         textAlign: 'center',
@@ -42,31 +53,101 @@ const useStyles = makeStyles({
         marginLeft: '2%',
         background: '#B3BE9F',
         color: 'white',
-        fontFamily: 'Sora'
+        fontFamily: 'Sora',
+        marginBottom: '4%',
+        marginTop: '4%'
+    },
+    displayNone: {
+        textAlign: 'center',
+        margin: '5%'
     }
 })
 
+const plantInfo = [];
+
+//map through api to display four plants 
+//create a section if there is no plants
 const MyPlants = () => {
+
+    const [plants, setPlants] = useState(plantInfo);
+    const { push } = useHistory();
+    const { id } = useParams();
+
+    // const addPlant = plant => {
+    //     // add the given plant to the list
+    //     setPlants([...plants, plant]);
+    // };
+
+    useEffect(() => {
+        axiosWithAuth()
+        .get(`https://water-my-plant-tt44.herokuapp.com/api/plants`)
+        .then(res => {
+            // console.log('RESULTS', res.data);
+            setPlants(res.data);
+        })
+        .catch(err => {
+            console.log(err);
+        })
+    }, []);
+
+    const handleEditClick = (e) => {
+        e.preventDefault();
+        push('/update-plant');
+    }
+
+    const handleAddPlant = (e) => {
+        e.preventDefault();
+        push('/add-plant');
+    }
+
+    const handleMoreInfoClick = (e) => {
+        e.preventDefault();
+        push('/plant');
+    }
+
     const classes = useStyles();
     return (
-        <div>
+        <>
             <PlantNav />
-            <Grid className={classes.gridStyling}>
-                <Typography variant='h4' className={classes.h4Styles}>My Plants</Typography>
-            </Grid>
-            <Grid container spacing={2} className={classes.gridStyling}>
-                <Grid item className={classes.container}>
-                    <img src='https://images.unsplash.com/photo-1512428813834-c702c7702b78?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80' alt='plant' className={classes.imgStyles} />
-                    <Typography variant='h5' className={classes.h5Styles}>Sandra The Plant</Typography>
-                    <Typography variant='subtitle1' className={classes.subtitle1Styles}>Erotus Maximus</Typography>
-                    <Typography variant='subtitle2' className={classes.subtitle2Styles}>Next watering in: 2 days</Typography>
+                <Grid className={classes.gridStyling}>
+                    <Typography variant='h4' className={classes.h4Styles}>My Plants</Typography>
                 </Grid>
-
-            </Grid>
+                {
+                plants.map(plant => {
+                    if(plants.length === 0){
+                        return (
+                            <Grid container spacing={2}>
+                                <Grid item>
+                                    <Typography variant='h4' className={classes.displayNone}>You currently do not have any plants.</Typography>
+                                </Grid>
+                            </Grid>
+                        );
+                    } else {
+                        return (
+                      <>
+                        <Grid container className={classes.contain}>
+                            <Grid container spacing={2} className={classes.gridStyling2}>
+                                <Grid item className={classes.container}>
+                                    <img src={plant.image} alt='plant' className={classes.imgStyles} />
+                                    <Typography variant='h5' className={classes.h5Styles}>{plant.nickname}</Typography>
+                                    <Typography variant='subtitle1' className={classes.subtitle1Styles}>{plant.species_name}</Typography>
+                                    <Typography variant='subtitle2' className={classes.subtitle2Styles}>Watering: {plant.frequency} {plant.interval_type_name}</Typography>
+                                    <Grid item>
+                                        <Button className={classes.buttonStyles} onClick={handleEditClick}>Edit</Button>
+                                        <Button className={classes.buttonStyles} onClick={handleMoreInfoClick}>More Info</Button>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                    </>
+                        );
+                    }
+                })
+            }
             <div>
-                <Button className={classes.buttonStyles}>Add Plant</Button>
+                <Button className={classes.buttonStyles} onClick={handleAddPlant}>Add Plant</Button>
             </div>
-        </div>
+        </>
     )
 }
 
