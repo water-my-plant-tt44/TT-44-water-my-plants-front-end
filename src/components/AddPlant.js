@@ -5,6 +5,8 @@ import TextField from "@material-ui/core/TextField";
 import IconButton from "@material-ui/core/IconButton";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
 import Grid from "@material-ui/core/Grid";
+import { createPlant } from './../actions/appActions';
+import { connect } from 'react-redux';
 
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -57,14 +59,40 @@ const useStyles = makeStyles({
   }
 });
 
+const plantObject = {
+  creator_id: -1,
+  species_name: '',
+  nickname: '',
+  frequency: '',
+  interval_id: '',
+  date: '',
+  time: '',
+  image: ''
+};
+
 
 const AddPlant = (props) => {
+  const { createPlant, user_id } = props;
+  const [plantValues, setPlantValues] = useState(plantObject);
+
   const classes = useStyles();
+
+  const handleSave = (e) => {
+    e.preventDefault();
+    console.log('plant values', plantValues);
+    createPlant(plantValues);
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setPlantValues({...plantValues, [name]: value});
+  }
+  console.log('add plant props', props);
 
   return (
     <>
     <PlantNav />
-      <form className={classes.formContainer}>
+      <form className={classes.formContainer} onSubmit={handleSave}>
             {/* Header */}
             <Grid item>
               <Typography variant='h3' className={classes.title}>Add a New Plant</Typography>
@@ -82,9 +110,9 @@ const AddPlant = (props) => {
               className={classes.input}
               id="icon-button-file"
               type="file"
-              name="img"
+              name="image"
               // value={formValues.img}
-              // onChange={onChange}
+              onChange={handleChange}
             />
 
             <label htmlFor="icon-button-file">
@@ -115,7 +143,7 @@ const AddPlant = (props) => {
                 id="filled-size-normal"
                 name="nickname"
                 // value={formValues.nickname}
-                // onChange={onChange}
+                onChange={handleChange}
                 label="Nickname"
                 variant="filled"
                 className={classes.textField}
@@ -126,10 +154,10 @@ const AddPlant = (props) => {
               {/* Species */}
               <TextField
                 id="filled-size-normal"
-                label="Species"
-                name="species"
+                label="species_name"
+                name="species_name"
                 // value={formValues.species}
-                // onChange={onChange}
+                onChange={handleChange}
                 variant="filled"
                 className={classes.textField}
               />
@@ -148,35 +176,35 @@ const AddPlant = (props) => {
 
             <Grid item>
               {/* Date */}
-              <label for="date">
+              <label htmlFor="date">
                 <Typography variant='h5'>Date</Typography>
                 <input
                   type="date"
                   id="date"
                   name="date"
                   // value={formValues.date}
-                  // onChange={onChange}
+                  onChange={handleChange}
                 />
               </label>
             </Grid>
 
             <Grid item>
               {/* Time */}
-              <label for="time">
+              <label htmlFor="time">
                 <Typography variant='h5'>Time</Typography>
                 <input
                   type="time"
                   id="time"
                   name="time"
                   // value={formValues.time}
-                  // onChange={onChange}
+                  onChange={handleChange}
                 />
               </label>
             </Grid>
 
             <Grid item className={classes.amount}>
               {/* Amount */}
-              <label for="frequency">
+              <label htmlFor="frequency">
                 <Typography variant='h5'>Amount</Typography>
                 <input
                   type="number"
@@ -185,25 +213,25 @@ const AddPlant = (props) => {
                   min="1"
                   max="7"
                   // value={formValues.amount}
-                  // onChange={onChange}
+                  onChange={handleChange}
                 />
               </label>
             </Grid>
 
             <Grid item className={classes.select}>
               {/* Frequency */}
-              <label for="interval">
+              <label htmlFor="interval">
                 <Typography variant='h5'>Frequency</Typography>
                 <select
                   type="select"
                   id="interval"
-                  name="interval"
-                  // value={formValues.freq}
-                  // onChange={onChange}
+                  name="interval_id"
+                  // value={plantValues.interval_id}
+                  onChange={handleChange}
                 >
-                  <option value="DAILY">Daily</option>
-                  <option value="WEEKLY">Weekly</option>
-                  <option value="MONTHLY">Monthly</option>
+                  <option value="1">Daily</option>
+                  <option value="2">Weekly</option>
+                  <option value="3">Monthly</option>
                 </select>
               </label>
               {/* <SimpleSelect name="freq" value={formValues.freq} /> */}
@@ -218,9 +246,24 @@ const AddPlant = (props) => {
           justify="center"
           alignItems="center"
         >
+
+            <Grid item>
+              <label htmlFor='creator_id'>
+                <Typography variant='h5'>Creator id (do not edit)</Typography>
+                <input
+                  id='creator_id'
+                  type="number"
+                  name="creator_id"
+                  value={user_id}
+                  // onChange={onChange}
+                />
+              </label>
+            </Grid>
+          
           <Grid item>
             {/* Save */}
-            <Button /*onChange={onChange}*/ className={classes.button}>
+            <Button 
+            type='submit' className={classes.button}>
               Save
             </Button>
           </Grid>
@@ -236,4 +279,11 @@ const AddPlant = (props) => {
   );
 };
 
-export default AddPlant;
+const mapStateToProps = (state) => {
+  console.log('MSTP inside add plant', state);
+  return {
+    user_id: state.auth.user.user_id,
+  }
+}
+
+export default connect(mapStateToProps, { createPlant })(AddPlant);

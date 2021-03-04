@@ -24,7 +24,7 @@ export const getUser = (id) => (dispatch) => {
 
 export const createPlant = (plantObject) => (dispatch) => {
   axiosWithAuth()
-    .post("http://localhost:5000/api/plants")
+    .post("/plants", plantObject)
     .then((res) => {
       dispatch({ type: CREATE_PLANT, payload: res.data.plants });
     })
