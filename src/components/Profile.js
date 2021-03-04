@@ -1,12 +1,29 @@
 import React from 'react'
-import PlantNav from './navs/PlantNav'
+import { getUser } from '../actions/appActions';
+import { connect } from "react-redux";
 
-const Profile = () => {
+const Profile = (props) => {
+// pass in id to getUser to fetch correct user profile
+
+const { getUser, id } = props;
+
+    getUser(id);
+
     return (
         <div>
-            <PlantNav />
+            <h1>Here is id: {id}</h1>
+            
         </div>
     )
 }
 
-export default Profile;
+const mapStateToProps = (state) => {
+    console.log('MSTP state',state);
+    return {
+        id: state.auth.user.user_id
+    }
+  };
+  
+
+
+export default connect(mapStateToProps, {getUser} )(Profile);

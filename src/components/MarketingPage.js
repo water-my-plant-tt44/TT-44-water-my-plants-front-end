@@ -1,11 +1,15 @@
 import React from 'react';
+import Signup from './Signup';
 import HomeNav from './navs/HomeNav';
 
 const MarketingPage = () => {
 
     return (
         <div>
-           <HomeNav />
+            {/* testing  */}
+            <h1>Marketing Page</h1>
+            <Signup />
+            <HomeNav />
         </div>
     )
 }
