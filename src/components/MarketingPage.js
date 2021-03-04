@@ -1,5 +1,6 @@
 import React from 'react';
 import Signup from './Signup';
+import HomeNav from './navs/HomeNav';
 
 const MarketingPage = () => {
 
@@ -8,6 +9,7 @@ const MarketingPage = () => {
             {/* testing  */}
             <h1>Marketing Page</h1>
             <Signup />
+            <HomeNav />
         </div>
     )
 }

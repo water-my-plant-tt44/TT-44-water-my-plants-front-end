@@ -5,6 +5,8 @@ import React, { useState } from "react";
 import {Paper,Grid,TextField,Typography,Button,IconButton,makeStyles} from "@material-ui/core";
 import { AccountCircle, Visibility, VisibilityOff } from "@material-ui/icons";
 import leavesBg from "../images/leaves_bg.jpg";
+import LoginSignupNav from './navs/LoginSignupNav'; // add header!!
+
 
 const useStyles = makeStyles({
   root: {
@@ -172,86 +174,3 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps, { userLoginSubmit })(Login);
-
-
-
-// import React, { useState } from "react";
-// import { useHistory } from "react-router-dom";
-// import { userLoginSubmit } from "../actions/authActions";
-// import { connect } from "react-redux";
-
-// const initialLogin = {
-//   username: "Ruben",
-//   password: "cheese",
-// };
-
-// const Login = ({ userLoginSubmit }) => {
-//   const [loginForm, setLoginForm] = useState(initialLogin);
-//   const history = useHistory();
-
-//   const handleChange = (e) => {
-//     const { value, name } = e.target;
-//     setLoginForm({ ...initialLogin, [name]: value });
-//     console.log("logintest", loginForm);
-//   };
-
-//   const handleSubmit = (e) => {
-//     e.preventDefault();
-//     console.log('history', history); 
-//     //console.log('inside handleSubmit')
-//     userLoginSubmit(loginForm, history);
-//     //console.log('after userLoginSubmit')
-//     setTimeout(() => {
-//         history.push("/Profile");
-//       }, 3000);
-//     // history.push("/Profile");
-//   };
-
-//   return (
-//     <section className="login-page">
-//       <div >
-//         <h3>LOGIN</h3>
-//         <button onClick={() => history.push("/")}>
-//           HOME
-//         </button>
-//       </div>
-//       <form onSubmit={(e) => handleSubmit(e)} >
-      
-//         <h3>EXISTING USERS</h3>
-//         <label>
-//           <input
-//             type="username"
-//             name="username"
-//             placeholder="USERNAME"
-//             value={initialLogin.username}
-//             onChange={handleChange}
-//             required
-          
-//           />
-//         </label>
-//         <br />
-//         <label>
-//           <input
-//             type="password"
-//             name="password"
-//             onChange={handleChange}
-//             value={initialLogin.password}
-//             placeholder="PASSWORD"
-//             required
-            
-//           />
-//         </label>
-//         <br />
-//         <button onClick={handleSubmit}>
-//           Login
-//         </button>
-//       </form>
-//     </section>
-//   );
-// };
-
-// const mapStateToProps = (state) => {
-//   return state;
-// };
-
-// export default connect(mapStateToProps, { userLoginSubmit })(Login);

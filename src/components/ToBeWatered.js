@@ -1,6 +1,6 @@
 import React from 'react';
 import PlantNav from './navs/PlantNav';
-import { makeStyles, Grid, Typography, Button } from '@material-ui/core';
+import { makeStyles, Grid, Typography } from '@material-ui/core';
 
 const useStyles = makeStyles({
     gridStyling: {
@@ -17,7 +17,7 @@ const useStyles = makeStyles({
         paddingTop: '0',
         marginTop: '2%',
         marginRight: '2%',
-        width: '18%',
+        width: '18%'
     },
     h4Styles: {
         textAlign: 'center',
@@ -41,18 +41,17 @@ const useStyles = makeStyles({
     buttonStyles: {
         marginLeft: '2%',
         background: '#B3BE9F',
-        color: 'white',
-        fontFamily: 'Sora'
+        color: 'white'
     }
 })
 
-const MyPlants = () => {
+const ToBeWatered = () => {
     const classes = useStyles();
     return (
         <div>
             <PlantNav />
             <Grid className={classes.gridStyling}>
-                <Typography variant='h4' className={classes.h4Styles}>My Plants</Typography>
+                <Typography variant='h4' className={classes.h4Styles}>To Be Watered</Typography>
             </Grid>
             <Grid container spacing={2} className={classes.gridStyling}>
                 <Grid item className={classes.container}>
@@ -61,13 +60,9 @@ const MyPlants = () => {
                     <Typography variant='subtitle1' className={classes.subtitle1Styles}>Erotus Maximus</Typography>
                     <Typography variant='subtitle2' className={classes.subtitle2Styles}>Next watering in: 2 days</Typography>
                 </Grid>
-
             </Grid>
-            <div>
-                <Button className={classes.buttonStyles}>Add Plant</Button>
-            </div>
         </div>
     )
 }
 
-export default MyPlants;
+export default ToBeWatered;
