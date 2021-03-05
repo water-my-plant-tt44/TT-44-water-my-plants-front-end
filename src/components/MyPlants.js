@@ -4,6 +4,7 @@ import { axiosWithAuth } from './../utils/axiosWithAuth';
 // import axios from 'axios';
 import { useHistory, useParams } from 'react-router-dom';
 import { makeStyles, Grid, Typography, Button } from '@material-ui/core';
+import {connect} from 'react-redux';
 
 const useStyles = makeStyles({
     contain: {
@@ -67,7 +68,7 @@ const plantInfo = [];
 
 //map through api to display four plants 
 //create a section if there is no plants
-const MyPlants = () => {
+const MyPlants = (props) => {
 
     const [plants, setPlants] = useState(plantInfo);
     const { push } = useHistory();
@@ -79,7 +80,7 @@ const MyPlants = () => {
 
     useEffect(() => {
         axiosWithAuth()
-        .get(`https://water-my-plant-tt44.herokuapp.com/api/plants`)
+        .get(`plants/user/${props.id}`)
         .then(res => {
             // console.log('RESULTS', res.data);
             setPlants(res.data);
@@ -150,4 +151,14 @@ const MyPlants = () => {
     )
 }
 
-export default MyPlants;
+const mapStateToProps = (state) => {
+    console.log('MSTP state inside myPlants',state);
+    return {
+        id: state.auth.user.user_id,
+        username: state.auth.user.username,
+        phoneNumber: state.auth.phoneNumber
+    }
+};
+  
+
+export default connect(mapStateToProps, {})(MyPlants);

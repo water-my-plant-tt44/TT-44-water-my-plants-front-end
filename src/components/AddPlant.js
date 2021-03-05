@@ -64,7 +64,7 @@ const AddPlant = (props) => {
 
   const plantObject = {
     creator_id: props.user_id,
-    // species_name: '',
+    species_name: '',
     nickname: '',
     frequency: '',
     interval_id: '',
@@ -151,9 +151,9 @@ const AddPlant = (props) => {
               />
             </Grid>
 
-            {/* <Grid item> */}
+            <Grid item>
               {/* Species */}
-              {/* <TextField
+              <TextField
                 id="filled-size-normal"
                 label="species_name"
                 name="species_name"
@@ -161,8 +161,8 @@ const AddPlant = (props) => {
                 onChange={handleChange}
                 variant="filled"
                 className={classes.textField}
-              /> */}
-            {/* </Grid> */}
+              />
+            </Grid>
           </Grid>
 
           <Grid
