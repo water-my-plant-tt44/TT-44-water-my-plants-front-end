@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import PlantNav from './navs/PlantNav';
 import { Grid, Button, Typography } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/styles';
 import { connect } from 'react-redux';
 import { getUser } from '../actions/appActions';
+import { userUpdatePhoneNumber } from '../actions/authActions';
 
 const useStyles = makeStyles({
     root: {
@@ -32,7 +33,13 @@ const useStyles = makeStyles({
 
 function Profile(props) {
 
-    const { getUser, id, username } = props; 
+   const { getUser, id, username } = props; 
+
+   useEffect(() => {
+    console.log("use effect happened");
+    getUser(id);
+  }, []);
+
     console.log('props', props);
 
     const { push } = useHistory();
@@ -82,4 +89,4 @@ const mapStateToProps = (state) => {
   
 
 
-export default connect(mapStateToProps, {getUser} )(Profile);
+export default connect(mapStateToProps, {getUser, userUpdatePhoneNumber } )(Profile);

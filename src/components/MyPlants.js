@@ -4,6 +4,7 @@ import { axiosWithAuth } from './../utils/axiosWithAuth';
 // import axios from 'axios';
 import { useHistory, useParams } from 'react-router-dom';
 import { makeStyles, Grid, Typography, Button } from '@material-ui/core';
+import {connect} from 'react-redux';
 
 const useStyles = makeStyles({
     contain: {
@@ -67,11 +68,10 @@ const plantInfo = [];
 
 //map through api to display four plants 
 //create a section if there is no plants
-const MyPlants = () => {
+const MyPlants = (props) => {
 
     const [plants, setPlants] = useState(plantInfo);
     const { push } = useHistory();
-    const { id } = useParams();
 
     // const addPlant = plant => {
     //     // add the given plant to the list
@@ -80,7 +80,7 @@ const MyPlants = () => {
 
     useEffect(() => {
         axiosWithAuth()
-        .get(`https://water-my-plant-tt44.herokuapp.com/api/plants`)
+        .get(`plants/user/${props.id}`)
         .then(res => {
             // console.log('RESULTS', res.data);
             setPlants(res.data);
@@ -90,10 +90,10 @@ const MyPlants = () => {
         })
     }, []);
 
-    const handleEditClick = (e) => {
-        e.preventDefault();
-        push('/update-plant');
-    }
+    // const handleEditClick = (e) => {
+    //     e.preventDefault();
+    //     push('/update-plant');
+    // }
 
     const handleAddPlant = (e) => {
         e.preventDefault();
@@ -133,7 +133,7 @@ const MyPlants = () => {
                                     <Typography variant='subtitle1' className={classes.subtitle1Styles}>{plant.species_name}</Typography>
                                     <Typography variant='subtitle2' className={classes.subtitle2Styles}>Watering: {plant.frequency} {plant.interval_type_name}</Typography>
                                     <Grid item>
-                                        <Button className={classes.buttonStyles} onClick={handleEditClick}>Edit</Button>
+                                        {/* <Button className={classes.buttonStyles} onClick={handleEditClick}>Edit</Button> */}
                                         <Button className={classes.buttonStyles} onClick={handleMoreInfoClick}>More Info</Button>
                                     </Grid>
                                 </Grid>
@@ -151,4 +151,14 @@ const MyPlants = () => {
     )
 }
 
-export default MyPlants;
+const mapStateToProps = (state) => {
+    console.log('MSTP state inside myPlants',state);
+    return {
+        id: state.auth.user.user_id,
+        username: state.auth.user.username,
+        phoneNumber: state.auth.phoneNumber
+    }
+};
+  
+
+export default connect(mapStateToProps, {})(MyPlants);

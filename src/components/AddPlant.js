@@ -59,19 +59,20 @@ const useStyles = makeStyles({
   }
 });
 
-const plantObject = {
-  creator_id: -1,
-  species_name: '',
-  nickname: '',
-  frequency: '',
-  interval_id: '',
-  date: '',
-  time: '',
-  image: ''
-};
-
 
 const AddPlant = (props) => {
+
+  const plantObject = {
+    creator_id: props.user_id,
+    species_name: '',
+    nickname: '',
+    frequency: '',
+    interval_id: '',
+    date: '',
+    time: '',
+    image: ''
+  };
+
   const { createPlant, user_id } = props;
   const [plantValues, setPlantValues] = useState(plantObject);
 
