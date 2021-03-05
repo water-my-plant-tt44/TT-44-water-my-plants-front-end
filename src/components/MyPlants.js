@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PlantNav from './navs/PlantNav';
 import { axiosWithAuth } from './../utils/axiosWithAuth';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { makeStyles, Grid, Typography, Button } from '@material-ui/core';
 import {connect} from 'react-redux';
 import { getAllUserPlants } from './../actions/appActions';
@@ -65,19 +65,21 @@ const useStyles = makeStyles({
 })
 
 
-//map through api to display four plants 
-//create a section if there is no plants
 const MyPlants = (props) => {
+    
     console.log('props inside my plants', props);
-
+    
     useEffect(() => {
-        console.log("inside useEffect");
-        props.getAllUserPlants(props.id);
+        console.log('inside useEffect');
     }, []);
-
+    
+    // useEffect( () => {
+        //     console.log("inside useEffect");
+        //     props.getAllUserPlants(props.id);
+        // }, []);
+        
+        
     const { push } = useHistory();
-    // const { getPlant, id } = props;
-
 
     const handleAddPlant = (e) => {
         e.preventDefault();
