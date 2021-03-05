@@ -7,17 +7,22 @@ const useStyles = makeStyles({
   navStyles: {
     display: 'flex',
     alignItems: 'center',
+    textAlign: 'center',
     paddingLeft: '1.5%',
     paddingRight: '1.5%',
     textDecoration: 'none',
+    maxWidth: '100%',
   },
   linkStyles: {
     textDecoration: 'none',
     paddingLeft: '1.5%',
     paddingTop: '1%',
+
   },
   buttonStyles: {
     fontFamily: 'Saira',
+    fontSize: '1rem',
+    color: '#7A7A7A'
   }
 })
 

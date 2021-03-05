@@ -23,20 +23,21 @@ const initialState = {
     console.log("STATE", state);
     switch (action.type) {
       case "ADD_PLANT":
-        console.log("ADD PLANT ACTION");
+        console.log("Action Payload", action.payload);
         return {
-          ...state,
-          plants: [...state.plants, action.payload],
+          ...state.app,
+          plants: [...state.app.plants, action.payload],
         };
       case "DELETE_PLANT":
         return {
-          plants: state.plants.filter((plantObject) => {
+          ...state.app,
+          plants: state.app.plants.filter((plantObject) => {
             return plantObject.id !== action.payload.id;
           }),
         };
       case "EDIT_PLANT":
         return {
-          user: { ...state, plants: [...state, action.payload] },
+          user: { ...state.app, plants: [...state.app.plants, action.payload] },
         };
       default:
         return state;

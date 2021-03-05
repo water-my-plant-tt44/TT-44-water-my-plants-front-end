@@ -71,7 +71,6 @@ const MyPlants = () => {
 
     const [plants, setPlants] = useState(plantInfo);
     const { push } = useHistory();
-    const { id } = useParams();
 
     // const addPlant = plant => {
     //     // add the given plant to the list
@@ -90,10 +89,10 @@ const MyPlants = () => {
         })
     }, []);
 
-    const handleEditClick = (e) => {
-        e.preventDefault();
-        push('/update-plant');
-    }
+    // const handleEditClick = (e) => {
+    //     e.preventDefault();
+    //     push('/update-plant');
+    // }
 
     const handleAddPlant = (e) => {
         e.preventDefault();
@@ -133,7 +132,7 @@ const MyPlants = () => {
                                     <Typography variant='subtitle1' className={classes.subtitle1Styles}>{plant.species_name}</Typography>
                                     <Typography variant='subtitle2' className={classes.subtitle2Styles}>Watering: {plant.frequency} {plant.interval_type_name}</Typography>
                                     <Grid item>
-                                        <Button className={classes.buttonStyles} onClick={handleEditClick}>Edit</Button>
+                                        {/* <Button className={classes.buttonStyles} onClick={handleEditClick}>Edit</Button> */}
                                         <Button className={classes.buttonStyles} onClick={handleMoreInfoClick}>More Info</Button>
                                     </Grid>
                                 </Grid>
