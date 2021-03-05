@@ -3,6 +3,8 @@ import PlantNav from './navs/PlantNav';
 import { Grid, Button, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import { useHistory } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { deletePlant } from './../actions/appActions';
 
 const useStyles = makeStyles({
     mainContainer: {
@@ -64,20 +66,32 @@ const useStyles = makeStyles({
         fontWeight: 'bolder',
         fontFamily: 'Sora'
     }
-})
+});
 
-const Plant = () => {
+// const plantObj = {
+//         id: null, 
+//         nickname: "",
+//         species_name: "",
+//         interval_type_name: "",
+//         next_watering_date: "", // based on interval
+//         image: "" //optional
+// }
+
+const Plant = (props) => {
 
     const classes = useStyles();
     const { push } = useHistory();
+    // const { deletePlant } = props;
 
     const handleEdit = (e) => {
         e.preventDefault();
         push('/update-plant');
     }
 
-    const handleDelete = () => {
-        
+    const handleDelete = (e) => {
+        e.preventDefault();
+        // deletePlant(plantObj);
+        push('/myplants');
     }
 
     return (
@@ -87,27 +101,32 @@ const Plant = () => {
                 <Grid container className={classes.imgContainer}>
                         <Grid item>
                             <img src='https://images.unsplash.com/photo-1604762512526-b7ce049b5764?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80' alt='plant' className={classes.img} />
+                            {/* <img src={image} alt='plant' className={classes.img} /> */}
                         </Grid>
                 </Grid>
                 <Grid container className={classes.textContainer}>
                         <Grid item className={classes.items}>
                             <Typography variant='h4' className={classes.header}>
                                 Sandra The Plant
+                                {/* {nickname} */}
                             </Typography>
                         </Grid>
                         <Grid item className={classes.items}>
                             <Typography variant='h5' className={classes.speciesStyles}>
                                 Maximus Pollergoney
+                                {/* {species_name} */}
                             </Typography>
                         </Grid>
                         <Grid item className={classes.items}>
                             <Typography variant='subtitle1' className={classes.textStyles}>
-                                H2O Frequency: Every 2 days
+                                H2O Frequency: 2 days
+                                {/* H2O Frequency: {frequency} {interval_type_name} */}
                             </Typography>
                         </Grid>
                         <Grid item className={classes.items}>
                             <Typography variant='subtitle1' className={classes.textStyles}>
                                 Time: 8:00 am
+                                {/* Time: {time} */}
                             </Typography>
                         </Grid>
                 <Grid container className={classes.buttonContainer}>
@@ -127,4 +146,9 @@ const Plant = () => {
     )
 }
 
-export default Plant;
+const mapStateToProps = (state) => {
+    console.log('MSTP inside plant', state);
+    return state;
+}
+
+export default connect(mapStateToProps, { deletePlant })(Plant);
