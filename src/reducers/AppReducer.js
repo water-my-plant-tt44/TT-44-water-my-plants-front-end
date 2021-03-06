@@ -18,6 +18,16 @@ const initialState = {
         watered: false
         },
     ],
+    current_plant : {
+      plant_id: "", 
+      nickname: "",
+      species_name: "",
+      frequency: "", 
+      interval_type_name: "", 
+      image: "",
+      watered: false
+      },
+    
 
   };
 
@@ -49,7 +59,7 @@ const initialState = {
         }
       case GET_PLANT_INFO:
         return {
-          plants: {...state.app.plants}
+          plants: {...state.app.plants},
         }
       case GET_ALL_PLANT_INFO: 
         return {
