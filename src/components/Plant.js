@@ -5,7 +5,7 @@ import { makeStyles } from "@material-ui/styles";
 import { useHistory, useParams } from "react-router-dom";
 import { connect } from "react-redux";
 import { deletePlant } from "./../actions/appActions";
-import { getPlant } from "./../actions/appActions";
+import { getPlant, editPlant } from "./../actions/appActions";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
 
 const useStyles = makeStyles({
@@ -100,6 +100,7 @@ const Plant = (props) => {
 
   const handleEdit = (e) => {
     e.preventDefault();
+    props.editPlant(plantId, currentPlant);
     push("/update-plant");
   };
 
@@ -152,7 +153,12 @@ const Plant = (props) => {
             </Typography>
           </Grid>
           <Grid container className={classes.buttonContainer}>
-            <Button className={classes.buttonStyles} onClick={handleEdit}>
+            <Button
+              className={classes.buttonStyles}
+              onClick={(e) => {
+                handleEdit(e, props.plants.plant_id);
+              }}
+            >
               Edit Plant
             </Button>
             <Button
@@ -185,4 +191,6 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { deletePlant, getPlant })(Plant);
+export default connect(mapStateToProps, { deletePlant, editPlant, getPlant })(
+  Plant
+);
