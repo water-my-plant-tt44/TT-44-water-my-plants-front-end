@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import PlantNav from './navs/PlantNav';
 import { axiosWithAuth } from './../utils/axiosWithAuth';
-// import axios from 'axios';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { makeStyles, Grid, Typography, Button } from '@material-ui/core';
 import {connect} from 'react-redux';
+import { getAllUserPlants } from './../actions/appActions';
 
 const useStyles = makeStyles({
     contain: {
@@ -64,46 +64,42 @@ const useStyles = makeStyles({
     }
 })
 
-const plantInfo = [];
 
-//map through api to display four plants 
-//create a section if there is no plants
 const MyPlants = (props) => {
-
-    const [plants, setPlants] = useState(plantInfo);
+    
+    console.log('props inside my plants', props);
+    
+    // useEffect(() => {
+    //     console.log('inside useEffect');
+    // }, []);
+    
+    useEffect( () => {
+            console.log("inside useEffect");
+            props.getAllUserPlants(props.id);
+        }, []);
+        
+        
     const { push } = useHistory();
-
-    // const addPlant = plant => {
-    //     // add the given plant to the list
-    //     setPlants([...plants, plant]);
-    // };
-
-    useEffect(() => {
-        axiosWithAuth()
-        .get(`plants/user/${props.id}`)
-        .then(res => {
-            // console.log('RESULTS', res.data);
-            setPlants(res.data);
-        })
-        .catch(err => {
-            console.log(err);
-        })
-    }, []);
-
-    // const handleEditClick = (e) => {
-    //     e.preventDefault();
-    //     push('/update-plant');
-    // }
 
     const handleAddPlant = (e) => {
         e.preventDefault();
         push('/add-plant');
     }
 
-    const handleMoreInfoClick = (e) => {
+    const handleMoreInfoClick = (e, plantId) => {
         e.preventDefault();
-        push('/plant');
+        axiosWithAuth()
+            .get(`/plants/${plantId}`)
+            .then((res) => {
+                push(`/plant/${plantId}`)
+            })
+            .catch((err) => {
+                console.log("More plant info error", err);
+            })
     }
+
+    // console.log("plant props", props.plants);
+    console.log("props", props);
 
     const classes = useStyles();
     return (
@@ -113,8 +109,9 @@ const MyPlants = (props) => {
                     <Typography variant='h4' className={classes.h4Styles}>My Plants</Typography>
                 </Grid>
                 {
-                plants.map(plant => {
-                    if(plants.length === 0){
+                props.plants && props.plants.map(plant => {
+                    // console.log("plantObject", plant);
+                    if(props.plants.length === 0){
                         return (
                             <Grid container spacing={2}>
                                 <Grid item>
@@ -133,8 +130,7 @@ const MyPlants = (props) => {
                                     <Typography variant='subtitle1' className={classes.subtitle1Styles}>{plant.species_name}</Typography>
                                     <Typography variant='subtitle2' className={classes.subtitle2Styles}>Watering: {plant.frequency} {plant.interval_type_name}</Typography>
                                     <Grid item>
-                                        {/* <Button className={classes.buttonStyles} onClick={handleEditClick}>Edit</Button> */}
-                                        <Button className={classes.buttonStyles} onClick={handleMoreInfoClick}>More Info</Button>
+                                        <Button className={classes.buttonStyles} onClick={ (e) => handleMoreInfoClick(e, plant.plant_id)}>More Info</Button>
                                     </Grid>
                                 </Grid>
                             </Grid>
@@ -156,9 +152,10 @@ const mapStateToProps = (state) => {
     return {
         id: state.auth.user.user_id,
         username: state.auth.user.username,
-        phoneNumber: state.auth.phoneNumber
+        phoneNumber: state.auth.phoneNumber,
+        plants: state.app.plants,
     }
 };
   
 
-export default connect(mapStateToProps, {})(MyPlants);
+export default connect(mapStateToProps, {getAllUserPlants})(MyPlants);

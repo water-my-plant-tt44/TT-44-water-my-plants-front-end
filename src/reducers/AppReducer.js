@@ -1,4 +1,4 @@
-import {ADD_PLANT,DELETE_PLANT, EDIT_PLANT, GET_USER_INFO, GET_PLANT_INFO } 
+import {ADD_PLANT,DELETE_PLANT, EDIT_PLANT, GET_USER_INFO, GET_PLANT_INFO, GET_ALL_PLANT_INFO } 
 from '../actions/appActions'
 
 
@@ -9,13 +9,13 @@ const initialState = {
         },
     ],
     plants: [ {
-        id: "", // string or int?
+        plant_id: "", // string or int?
         nickname: "",
         species_name: "",
-        h2oFrequency: "", // need to determine, dropdown? Check with Ruben
-        interval_type_name: "",
-        next_watering_date: "", // based on interval
-        image: "" //optional
+        frequency: "", // need to determine, dropdown? Check with Ruben
+        interval_type_name: "", // based on interval
+        image: "", //optional,
+        watered: false
         },
     ],
 
@@ -51,6 +51,11 @@ const initialState = {
         return {
           plants: {...state.app.plants}
         }
+      case GET_ALL_PLANT_INFO: 
+        return {
+          ...state.app,
+            plants: action.payload
+        };
       default:
         return state;
     }
