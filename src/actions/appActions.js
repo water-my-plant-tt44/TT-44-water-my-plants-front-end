@@ -35,10 +35,10 @@ export const createPlant = (plantObject) => (dispatch) => {
     });
 };
 
-export const editPlant = (plantObject) => (dispatch) => {
+export const editPlant = (plantid, plantObject) => (dispatch) => {
   console.log("editPlant action");
   axiosWithAuth()
-    .put("editPlant endpoint", plantObject) // TBD
+    .put(`/plants/${plantid}`, plantObject)
     .then((res) => {
       console.log("SPECIFIC PLANT DATA:", res.data.plants);
       dispatch({ type: EDIT_PLANT, payload: res.data.plants });
