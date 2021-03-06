@@ -1,11 +1,11 @@
-import {axiosWithAuth} from "../utils/axiosWithAuth";
+import { axiosWithAuth } from "../utils/axiosWithAuth";
 
 export const ADD_PLANT = "ADD_PLANT";
 export const DELETE_PLANT = "DELETE_PLANT";
 export const EDIT_PLANT = "EDIT_PLANT";
 export const GET_USER_INFO = "GET_USER_INFO";
 export const GET_PLANT_INFO = "GET_PLANT_INFO";
-export const GET_ALL_PLANT_INFO = 'GET_ALL_PLANT_INFO';
+export const GET_ALL_PLANT_INFO = "GET_ALL_PLANT_INFO";
 
 //action creators returning action objects
 // use dispatch!
@@ -27,7 +27,7 @@ export const createPlant = (plantObject) => (dispatch) => {
   axiosWithAuth()
     .post("/plants", plantObject)
     .then((res) => {
-      console.log('res', res);
+      console.log("res", res);
       dispatch({ type: ADD_PLANT, payload: plantObject });
     })
     .catch((err) => {
@@ -36,23 +36,25 @@ export const createPlant = (plantObject) => (dispatch) => {
 };
 
 export const editPlant = (plantObject) => (dispatch) => {
-    console.log("editPlant action");
-    axiosWithAuth()
-      .put("editPlant endpoint", plantObject) // TBD
-      .then((res) => {
-        console.log("SPECIFIC PLANT DATA:", res.data.plants);
-        dispatch({ type: EDIT_PLANT, payload: res.data.plants });
-      })
-      .catch((err) => {
-        console.log("ERROR", err.message);
-      });
-  };
-
-export const deletePlant = (plantObject, id) => (dispatch) => {
+  console.log("editPlant action");
   axiosWithAuth()
-    .delete(`/plants/${id}`)
+    .put("editPlant endpoint", plantObject) // TBD
     .then((res) => {
-    dispatch({ type: DELETE_PLANT, payload: res.data.plants});
+      console.log("SPECIFIC PLANT DATA:", res.data.plants);
+      dispatch({ type: EDIT_PLANT, payload: res.data.plants });
+    })
+    .catch((err) => {
+      console.log("ERROR", err.message);
+    });
+};
+
+export const deletePlant = (plantid, userid) => (dispatch) => {
+  console.log("BEFORE AXIOS DEL");
+  axiosWithAuth()
+    .delete(`/plants/${plantid}`)
+    .then((res) => {
+      console.log("AFTER AXIOS DELETE");
+      getAllUserPlants(userid);
     })
     .catch((err) => {
       console.log("Error deleting plant");
@@ -60,17 +62,17 @@ export const deletePlant = (plantObject, id) => (dispatch) => {
 };
 
 export const getPlant = (plantId) => (dispatch) => {
-  console.log('getPlant action');
+  console.log("getPlant action");
   axiosWithAuth()
     .get(`/plants/${plantId}`)
     .then((res) => {
-      console.log('SPECIFIC PLANT DATA', res.data);
-      dispatch({ type: GET_PLANT_INFO, payload: res.data })
+      console.log("SPECIFIC PLANT DATA", res.data);
+      dispatch({ type: GET_PLANT_INFO, payload: res.data });
     })
     .catch((err) => {
-      console.log('ERROR', err.message);
-    })
-} 
+      console.log("ERROR", err.message);
+    });
+};
 
 export const getAllUserPlants = (userId) => (dispatch) => {
   console.log("getAllUserPlants action");
@@ -78,10 +80,10 @@ export const getAllUserPlants = (userId) => (dispatch) => {
   axiosWithAuth()
     .get(`/plants/user/${userId}`)
     .then((res) => {
-      console.log("All user plants",res.data);
-      dispatch({ type: GET_ALL_PLANT_INFO, payload: res.data })
+      console.log("All user plants", res.data);
+      dispatch({ type: GET_ALL_PLANT_INFO, payload: res.data });
     })
     .catch((err) => {
-      console.log('Error grabbing plants', err);
-    })
-}
+      console.log("Error grabbing plants", err);
+    });
+};

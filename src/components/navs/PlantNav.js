@@ -2,8 +2,8 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { connect } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { connect } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles({
   navStyles: {
@@ -43,10 +43,10 @@ const PlantNav = () => {
   const classes = useStyles();
   const { push } = useHistory();
 
-    const logout = () => {
-        localStorage.removeItem('token');
-        push('/');
-    };
+  const logout = () => {
+    localStorage.removeItem("token");
+    push("/");
+  };
 
   return (
     <div className={classes.navStyles}>
@@ -54,9 +54,9 @@ const PlantNav = () => {
         <p>Water My Plants</p>
       </div>
       <div className={classes.divStyles}>
-        <NavLink to="/" className={classes.linkStyles}>
+        {/* <NavLink to="/myplants" className={classes.linkStyles}>
           <Button className={classes.buttonStyles}>Home</Button>
-        </NavLink>
+        </NavLink> */}
         <NavLink to="/myplants" className={classes.linkStyles}>
           <Button className={classes.buttonStyles}>My Plants</Button>
         </NavLink>

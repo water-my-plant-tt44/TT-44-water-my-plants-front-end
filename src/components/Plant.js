@@ -84,8 +84,6 @@ const Plant = (props) => {
   const { push } = useHistory();
   const plantId = props.match.params.id;
   // const { deletePlant } = props;
-  console.log("plant id", plantId);
-  console.log("PROPS PLANTS", props);
 
   const [currentPlant, setCurrentPlant] = useState([]);
 
@@ -93,9 +91,7 @@ const Plant = (props) => {
     axiosWithAuth()
       .get(`/plants/${plantId}`)
       .then((res) => {
-        console.log("SPECIFIC PLANT DATA", res.data[0]);
         setCurrentPlant(res.data[0]);
-        console.log("CURRENT PLANT", currentPlant);
       })
       .catch((err) => {
         console.log("ERROR", err.message);
@@ -107,9 +103,11 @@ const Plant = (props) => {
     push("/update-plant");
   };
 
-  const handleDelete = (e) => {
+  const handleDelete = (e, userid) => {
     e.preventDefault();
-    deletePlant(plantId);
+    console.log("HANDLEDELETE IN PLANT");
+    props.deletePlant(plantId, userid);
+    console.log("AFTER DEL FUNc");
     push("/myplants");
   };
 
@@ -157,7 +155,12 @@ const Plant = (props) => {
             <Button className={classes.buttonStyles} onClick={handleEdit}>
               Edit Plant
             </Button>
-            <Button className={classes.buttonStyles} onClick={handleDelete}>
+            <Button
+              className={classes.buttonStyles}
+              onClick={(e) => {
+                handleDelete(e, props.userid);
+              }}
+            >
               Delete Plant
             </Button>
           </Grid>
@@ -176,8 +179,8 @@ const Plant = (props) => {
 };
 
 const mapStateToProps = (state) => {
-  console.log("MSTP inside plant", state);
   return {
+    userid: state.auth.user.user_id,
     plants: state.app.plants,
   };
 };
