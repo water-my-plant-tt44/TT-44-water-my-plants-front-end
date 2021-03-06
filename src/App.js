@@ -31,7 +31,7 @@ function App() {
           <PrivateRoute path='/myplants' component={MyPlants} />
           <PrivateRoute path='/plant/:id' component={Plant} />
           <PrivateRoute path='/add-plant' component={AddPlant} />
-          <PrivateRoute path='/update-plant' component={UpdatePlant} />
+          <PrivateRoute path='/update-plant/:id' component={UpdatePlant} />
           <PrivateRoute path='/update-password' component={UpdatePassword} /> 
           <PrivateRoute path='/update-phoneNumber' component={UpdatePhoneNumber} /> 
           <PrivateRoute path='/profile' component={Profile} />

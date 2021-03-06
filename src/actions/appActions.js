@@ -40,11 +40,11 @@ export const editPlant = (plantid, plantObject) => (dispatch) => {
   axiosWithAuth()
     .put(`/plants/${plantid}`, plantObject)
     .then((res) => {
-      console.log("SPECIFIC PLANT DATA:", res.data.plants);
-      dispatch({ type: EDIT_PLANT, payload: res.data.plants });
+      console.log("successful edit", res);
+      // dispatch({ type: EDIT_PLANT, payload: res.data.plants });
     })
     .catch((err) => {
-      console.log("ERROR", err.message);
+      console.log("ERROR within editPlant", err.message);
     });
 };
 

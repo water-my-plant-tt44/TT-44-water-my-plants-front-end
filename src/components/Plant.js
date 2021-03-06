@@ -70,28 +70,20 @@ const useStyles = makeStyles({
   },
 });
 
-// const plantObj = {
-//         id: null,
-//         nickname: "",
-//         species_name: "",
-//         interval_type_name: "",
-//         next_watering_date: "", // based on interval
-//         image: "" //optional
-// }
-
 const Plant = (props) => {
   const classes = useStyles();
   const { push } = useHistory();
   const plantId = props.match.params.id;
-  // const { deletePlant } = props;
-
+  //console.log(plantId);
   const [currentPlant, setCurrentPlant] = useState([]);
+
 
   useEffect(() => {
     axiosWithAuth()
       .get(`/plants/${plantId}`)
       .then((res) => {
         setCurrentPlant(res.data[0]);
+        console.log('Plant props', props)
       })
       .catch((err) => {
         console.log("ERROR", err.message);
@@ -100,8 +92,9 @@ const Plant = (props) => {
 
   const handleEdit = (e) => {
     e.preventDefault();
-    props.editPlant(plantId, currentPlant); // MOVE TO UpdatePlant and update handleclick for submit
-    push("/update-plant");
+    //console.log('handleEdit plantId', plantId);
+    // how to pass plant id to UpdatePlant.js?
+    push(`/update-plant/${plantId}`);
   };
 
   const handleDelete = (e, userid) => {
@@ -191,6 +184,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { deletePlant, editPlant, getPlant })(
-  Plant
-);
+export default connect(mapStateToProps, { deletePlant, editPlant, getPlant })(Plant);
