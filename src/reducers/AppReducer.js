@@ -9,10 +9,10 @@ const initialState = {
         },
     ],
     plants: [ {
-        id: "", // string or int?
+        plant_id: "", // string or int?
         nickname: "",
         species_name: "",
-        h2oFrequency: "", // need to determine, dropdown? Check with Ruben
+        frequency: "", // need to determine, dropdown? Check with Ruben
         interval_type_name: "", // based on interval
         image: "", //optional,
         watered: false
@@ -54,15 +54,7 @@ const initialState = {
       case GET_ALL_PLANT_INFO: 
         return {
           ...state.app,
-            plants: {
-              id: action.payload.plant_id,
-              nickname: action.payload.nickname,
-              species_name: action.payload.species_name,
-              h2oFrequency: action.payload.frequency, 
-              interval_type_name: action.payload.interval_type_name,
-              image: action.payload.image,
-              watered: action.payload.watered
-            }
+            plants: action.payload
         };
       default:
         return state;

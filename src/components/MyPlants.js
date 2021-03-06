@@ -69,14 +69,14 @@ const MyPlants = (props) => {
     
     console.log('props inside my plants', props);
     
-    useEffect(() => {
-        console.log('inside useEffect');
-    }, []);
+    // useEffect(() => {
+    //     console.log('inside useEffect');
+    // }, []);
     
-    // useEffect( () => {
-        //     console.log("inside useEffect");
-        //     props.getAllUserPlants(props.id);
-        // }, []);
+    useEffect( () => {
+            console.log("inside useEffect");
+            props.getAllUserPlants(props.id);
+        }, []);
         
         
     const { push } = useHistory();
@@ -86,16 +86,16 @@ const MyPlants = (props) => {
         push('/add-plant');
     }
 
-    const handleMoreInfoClick = (e) => {
+    const handleMoreInfoClick = (e, plantId) => {
         e.preventDefault();
-        // axiosWithAuth()
-        //     .get(`/plants/${plantId}`)
-        //     .then((res) => {
-        //         push(`/plant/${plantId}`)
-        //     })
-        //     .catch((err) => {
-        //         console.log("More plant info error", err);
-        //     })
+        axiosWithAuth()
+            .get(`/plants/${plantId}`)
+            .then((res) => {
+                push(`/plant/${plantId}`)
+            })
+            .catch((err) => {
+                console.log("More plant info error", err);
+            })
     }
 
     // console.log("plant props", props.plants);
@@ -109,7 +109,7 @@ const MyPlants = (props) => {
                     <Typography variant='h4' className={classes.h4Styles}>My Plants</Typography>
                 </Grid>
                 {
-                props.plants.map(plant => {
+                props.plants && props.plants.map(plant => {
                     // console.log("plantObject", plant);
                     if(props.plants.length === 0){
                         return (
@@ -130,7 +130,7 @@ const MyPlants = (props) => {
                                     <Typography variant='subtitle1' className={classes.subtitle1Styles}>{plant.species_name}</Typography>
                                     <Typography variant='subtitle2' className={classes.subtitle2Styles}>Watering: {plant.frequency} {plant.interval_type_name}</Typography>
                                     <Grid item>
-                                        <Button className={classes.buttonStyles} onClick={handleMoreInfoClick}>More Info</Button>
+                                        <Button className={classes.buttonStyles} onClick={ (e) => handleMoreInfoClick(e, plant.plant_id)}>More Info</Button>
                                     </Grid>
                                 </Grid>
                             </Grid>
@@ -153,8 +153,7 @@ const mapStateToProps = (state) => {
         id: state.auth.user.user_id,
         username: state.auth.user.username,
         phoneNumber: state.auth.phoneNumber,
-        plants: state.app.plants
-        // plantId: state.app.plants.id
+        plants: state.app.plants,
     }
 };
   
