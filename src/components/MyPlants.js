@@ -64,6 +64,19 @@ const useStyles = makeStyles({
   buttonPlacement: {
     display: 'flex',
     justifyContent: 'center',
+    alignItems: 'center'
+  },
+  buttonStyles1: {
+    background: "#B3BE9F",
+    color: "white",
+    fontFamily: "Sora",
+    marginBottom: "4%",
+    marginTop: "4%",
+    padding: '4%',
+    '&:hover' : {
+        background: 'white',
+        color: '#B3BE9F'
+    }
   },
   buttonStyles: {
     marginLeft: "2%",
@@ -170,9 +183,9 @@ const MyPlants = (props) => {
                         >
                             Watering: {plant.frequency} {plant.interval_type_name}
                         </Typography>
-                        <Grid item>
+                        <Grid item className={classes.buttonPlacement}>
                             <Button
-                            className={classes.buttonStyles}
+                            className={classes.buttonStyles1}
                             onClick={(e) =>
                                 handleMoreInfoClick(e, plant.plant_id)
                             }
