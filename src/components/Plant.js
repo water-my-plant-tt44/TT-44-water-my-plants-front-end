@@ -109,7 +109,7 @@ const Plant = (props) => {
 
   const handleDelete = (e) => {
     e.preventDefault();
-    // deletePlant(plantObj);
+    deletePlant(plantId);
     push("/myplants");
   };
 
