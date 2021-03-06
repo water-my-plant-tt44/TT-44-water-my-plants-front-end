@@ -76,7 +76,7 @@ const useStyles = makeStyles({
         width: '45%',
         textAlign: 'center',
         paddingLeft: '35%',
-        fontSize: '2.75rem',
+        fontSize: '2.60rem',
         fontFamily: 'Exo',
         color: '#7A7A7A'
     },
