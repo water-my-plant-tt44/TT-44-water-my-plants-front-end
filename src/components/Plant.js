@@ -9,8 +9,12 @@ import { getPlant, editPlant } from "./../actions/appActions";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
 
 const useStyles = makeStyles({
+  background: {
+    background: "linear-gradient(rgb(178,191,159), rgb(238,237,230))",
+    height: '120vh'
+  },
   mainContainer: {
-    background: "#cacaca",
+    background: "#eef2ef",
     maxWidth: "80%",
     margin: "0 auto",
     height: "80vh",
@@ -107,6 +111,7 @@ const Plant = (props) => {
 
   return (
     <>
+    <Grid className={classes.background}>
       <PlantNav />
       <Grid container className={classes.mainContainer}>
         <Grid container className={classes.imgContainer}>
@@ -173,6 +178,7 @@ const Plant = (props) => {
           </Grid>
         </Grid>
       </Grid>
+    </Grid>
     </>
   );
 };
