@@ -60,9 +60,9 @@ const PlantNav = () => {
         <NavLink to="/myplants" className={classes.linkStyles}>
           <Button className={classes.buttonStyles}>My Plants</Button>
         </NavLink>
-        <NavLink to="/needs-watered" className={classes.linkStyles}>
+        {/* <NavLink to="/needs-watered" className={classes.linkStyles}>
           <Button className={classes.buttonStyles}>Watering</Button>
-        </NavLink>
+        </NavLink> */}
         <NavLink to="/profile" className={classes.linkStyles}>
           <Button className={classes.buttonStyles}>Profile</Button>
         </NavLink>

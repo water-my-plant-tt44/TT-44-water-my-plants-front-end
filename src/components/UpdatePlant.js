@@ -2,7 +2,7 @@
 import React from "react";
 import styled from "styled-components";
 import PlantNav from "./navs/PlantNav";
-import { history, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 //styled change password
 const StyledCP = styled.div`

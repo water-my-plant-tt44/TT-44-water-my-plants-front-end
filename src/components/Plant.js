@@ -100,7 +100,7 @@ const Plant = (props) => {
 
   const handleEdit = (e) => {
     e.preventDefault();
-    props.editPlant(plantId, currentPlant);
+    props.editPlant(plantId, currentPlant); // MOVE TO UpdatePlant and update handleclick for submit
     push("/update-plant");
   };
 
