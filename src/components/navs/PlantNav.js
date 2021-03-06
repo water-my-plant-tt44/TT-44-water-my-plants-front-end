@@ -28,7 +28,7 @@ const useStyles = makeStyles({
     fontFamily: "Saira",
   },
   divStyles: {
-    width: "60%",
+    width: "30%",
   },
   pStyles: {
     fontSize: "1.4rem",
@@ -54,9 +54,6 @@ const PlantNav = () => {
         <p>Water My Plants</p>
       </div>
       <div className={classes.divStyles}>
-        {/* <NavLink to="/myplants" className={classes.linkStyles}>
-          <Button className={classes.buttonStyles}>Home</Button>
-        </NavLink> */}
         <NavLink to="/myplants" className={classes.linkStyles}>
           <Button className={classes.buttonStyles}>My Plants</Button>
         </NavLink>
