@@ -131,82 +131,82 @@ const MyPlants = (props) => {
   const classes = useStyles();
   return (
     <>
-    <Grid className={classes.background}>
-      <PlantNav />
-        <Grid className={classes.gridStyling}>
-            <Typography variant="h3" className={classes.h4Styles}>
-            My Plants
-            </Typography>
-        </Grid>
-        <Grid container className={classes.mainContainer}>
-        {props.plants &&
-            props.plants.map((plant) => {
-            // console.log("plantObject", plant);
-            if (props.plants.length === 0) {
-                return (
-                <Grid container spacing={2}>
-                    <Grid item>
-                    <Typography variant="h4" className={classes.displayNone}>
-                        You currently do not have any plants.
-                    </Typography>
-                    </Grid>
-                </Grid>
-                );
-            } else {
-                return (
-                <>
-                    <Grid container className={classes.contain}>
-                    <Grid container spacing={4} className={classes.gridStyling2}>
-                        <Grid item className={classes.container}>
-                        {/* <img
-                            src={plant.image}
-                            alt="plant"
-                            className={classes.imgStyles}
-                        /> */}
-                        <img
-                            src='https://images.unsplash.com/photo-1485955900006-10f4d324d411?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1504&q=80'
-                            alt="plant"
-                            className={classes.imgStyles}
-                        />
-                        <Typography variant="h5" className={classes.h5Styles}>
-                            {plant.nickname}
-                        </Typography>
-                        <Typography
-                            variant="subtitle1"
-                            className={classes.subtitle1Styles}
-                        >
-                            {plant.species_name}
-                        </Typography>
-                        <Typography
-                            variant="subtitle2"
-                            className={classes.subtitle2Styles}
-                        >
-                            Watering: {plant.frequency} {plant.interval_type_name}
-                        </Typography>
-                        <Grid item className={classes.buttonPlacement}>
-                            <Button
-                            className={classes.buttonStyles1}
-                            onClick={(e) =>
-                                handleMoreInfoClick(e, plant.plant_id)
-                            }
-                            >
-                            More Info
-                            </Button>
-                        </Grid>
-                        </Grid>
-                    </Grid>
-                    </Grid>
-                </>
-                );
-            }
-            })}
-        </Grid>
-            <Grid container className={classes.buttonPlacement}>
-                <Button className={classes.buttonStyles} onClick={handleAddPlant}>
-                Add Plant
-                </Button>
-            </Grid>
-        </Grid>
+      <Grid className={classes.background}>
+        <PlantNav />
+          <Grid className={classes.gridStyling}>
+              <Typography variant="h3" className={classes.h4Styles}>
+              My Plants
+              </Typography>
+          </Grid>
+          <Grid container className={classes.mainContainer}>
+          {props.plants &&
+              props.plants.map((plant) => {
+              // console.log("plantObject", plant);
+              if (props.plants.length === 0) {
+                  return (
+                  <Grid container spacing={2}>
+                      <Grid item>
+                      <Typography variant="h4" className={classes.displayNone}>
+                          You currently do not have any plants.
+                      </Typography>
+                      </Grid>
+                  </Grid>
+                  );
+              } else {
+                  return (
+                  <>
+                      <Grid container className={classes.contain}>
+                      <Grid container spacing={4} className={classes.gridStyling2}>
+                          <Grid item className={classes.container}>
+                          {/* <img
+                              src={plant.image}
+                              alt="plant"
+                              className={classes.imgStyles}
+                          /> */}
+                          <img
+                              src='https://images.unsplash.com/photo-1485955900006-10f4d324d411?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1504&q=80'
+                              alt="plant"
+                              className={classes.imgStyles}
+                          />
+                          <Typography variant="h5" className={classes.h5Styles}>
+                              {plant.nickname}
+                          </Typography>
+                          <Typography
+                              variant="subtitle1"
+                              className={classes.subtitle1Styles}
+                          >
+                              {plant.species_name}
+                          </Typography>
+                          <Typography
+                              variant="subtitle2"
+                              className={classes.subtitle2Styles}
+                          >
+                              Watering: {plant.frequency} {plant.interval_type_name}
+                          </Typography>
+                          <Grid item className={classes.buttonPlacement}>
+                              <Button
+                              className={classes.buttonStyles1}
+                              onClick={(e) =>
+                                  handleMoreInfoClick(e, plant.plant_id)
+                              }
+                              >
+                              More Info
+                              </Button>
+                          </Grid>
+                          </Grid>
+                      </Grid>
+                      </Grid>
+                  </>
+                  );
+              }
+              })}
+          </Grid>
+              <Grid container className={classes.buttonPlacement}>
+                  <Button className={classes.buttonStyles} onClick={handleAddPlant}>
+                  Add Plant
+                  </Button>
+              </Grid>
+          </Grid>
     </>
   );
 };
