@@ -18,7 +18,7 @@ const useStyles = makeStyles({
     marginTop: '0',
     color: 'white',
     fontSize: '1.35rem',
-    height: '90vh'
+    height: '100vh'
   },
   title: {
     textAlign: 'center',
@@ -247,19 +247,6 @@ const AddPlant = (props) => {
           justify="center"
           alignItems="center"
         >
-
-            <Grid item>
-              <label htmlFor='creator_id'>
-                <Typography variant='h5'>Creator id (do not edit)</Typography>
-                <input
-                  id='creator_id'
-                  type="number"
-                  name="creator_id"
-                  value={user_id}
-                  // onChange={onChange}
-                />
-              </label>
-            </Grid>
           
           <Grid item>
             {/* Save */}

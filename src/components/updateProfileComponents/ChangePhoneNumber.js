@@ -5,11 +5,52 @@ import {connect} from 'react-redux';
 import {userUpdatePhoneNumber} from '../../actions/authActions';
 import { useHistory } from "react-router-dom";
 
-//styled change password
-const StyledCP = styled.div
-`
-    text-align:center;
-`
+import {
+    Paper,
+    Grid,
+    TextField,
+    Typography,
+    Button,
+    IconButton,
+    makeStyles
+  } from "@material-ui/core";
+  import PhoneIcon from "@material-ui/icons/Phone";
+  
+  //styled
+  const useStyles = makeStyles({
+    root: {
+      flexFlow: "column wrap",
+      alignItems: "center",
+      backgroundImage: `url(https://images.pexels.com/photos/807598/pexels-photo-807598.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260)`,
+      height: "100vh"
+    },
+    paper: {
+      width: "25%",
+      marginTop: "4%",
+      padding: "1%",
+      backgroundColor: "#B3BE9F",
+      paddingBottom: '2%'
+    },
+    paperItem: {
+      color: "white",
+      marginTop: "4%",
+      marginBottom: "2%",
+      borderColor: "white"
+    },
+    topText: {
+      width: "100%",
+      textAlign: "center"
+    },
+    formGrid: {
+      flexFlow: "column wrap",
+      alignItems: "center"
+    },
+    haveAccount: {
+      flexFlow: "column wrap",
+      alignItems: "center"
+    }
+  });
+  
 
 const ChangePhoneNumber = (props) => {
 
@@ -17,6 +58,8 @@ const ChangePhoneNumber = (props) => {
     const history = useHistory();
 
     const [phoneNumber_v2, setPhoneNumber] = useState(phoneNumber);
+
+    const classes = useStyles();
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -34,19 +77,53 @@ const ChangePhoneNumber = (props) => {
         history.push('/profile')
     }
 
-    return(
-        <StyledCP>
-            <form onSubmit={handlePhoneNumberSubmit}>
-                <p>Change Phone Number:</p>
-                <input  type="text" 
-                        name="phoneNumber" 
-                        onChange={handleChange} 
-                        // value={profile.phonenumber}/>
-                        />
-                <button>Submit</button>
-            </form>
-        </StyledCP>
-    )
+    return (
+        <>
+          <Grid container className={classes.root}>
+            <Paper className={classes.paper}>
+              <Grid container>
+                <Typography
+                  variant="h3"
+                  className={`${classes.topText} ${classes.paperItem}`}
+                >
+                  Change Phone Number:
+                </Typography>
+              </Grid>
+              <form onSubmit={handlePhoneNumberSubmit}>
+                <Grid container className={classes.formGrid}>
+                  <TextField
+                    variant="filled"
+                    className={`${classes.paperItem}`}
+                    fullWidth
+                    required
+                    placeholder='e.g. (123)456-7890'
+                    // label="Phone Number"
+                    type="tel"
+                    name="phoneNumber"
+                    onChange={handleChange}
+                    autoComplete="off"
+                    InputProps={{
+                      endAdornment: (
+                        <IconButton>
+                          <PhoneIcon />
+                        </IconButton>
+                      )
+                    }}
+                  />
+                  <Button
+                    className={`${classes.paperItem}`}
+                    size="large"
+                    variant="contained"
+                    type="submit"
+                  >
+                    Submit
+                  </Button>
+                </Grid>
+              </form>
+            </Paper>
+          </Grid>
+        </>
+      );
 }
 
 const mapStateToProps = (state) => {

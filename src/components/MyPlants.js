@@ -7,20 +7,28 @@ import { connect } from "react-redux";
 import { getAllUserPlants } from "./../actions/appActions";
 
 const useStyles = makeStyles({
+  background: {
+    background: "linear-gradient(rgb(178,191,159), rgb(238,237,230))",
+  },
   contain: {
     display: "flex",
-    width: "20%",
+    width: "25%",
   },
   gridStyling: {
     margin: "2%",
   },
   gridStyling2: {
-    margin: "2%",
+    margin: "4%",
     display: "flex",
     width: "100%",
   },
+  mainContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+    marginTop: '2%'
+  },
   container: {
-    background: "lightgray",
+    background: "#eef2ef",
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
@@ -34,6 +42,8 @@ const useStyles = makeStyles({
   h4Styles: {
     textAlign: "center",
     fontFamily: "Sora",
+    marginTop: '3%',
+    color: 'white'
   },
   h5Styles: {
     padding: "2%",
@@ -49,6 +59,24 @@ const useStyles = makeStyles({
   },
   imgStyles: {
     height: "50vh",
+    width: '100%'
+  },
+  buttonPlacement: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  buttonStyles1: {
+    background: "#B3BE9F",
+    color: "white",
+    fontFamily: "Sora",
+    marginBottom: "4%",
+    marginTop: "4%",
+    padding: '4%',
+    '&:hover' : {
+        background: 'white',
+        color: '#B3BE9F'
+    }
   },
   buttonStyles: {
     marginLeft: "2%",
@@ -57,6 +85,11 @@ const useStyles = makeStyles({
     fontFamily: "Sora",
     marginBottom: "4%",
     marginTop: "4%",
+    padding: '1.25%',
+    '&:hover' : {
+        background: 'white',
+        color: '#B3BE9F'
+    }
   },
   displayNone: {
     textAlign: "center",
@@ -98,73 +131,82 @@ const MyPlants = (props) => {
   const classes = useStyles();
   return (
     <>
-      <PlantNav />
-      <Grid className={classes.gridStyling}>
-        <Typography variant="h4" className={classes.h4Styles}>
-          My Plants
-        </Typography>
-      </Grid>
-      {props.plants &&
-        props.plants.map((plant) => {
-          // console.log("plantObject", plant);
-          if (props.plants.length === 0) {
-            return (
-              <Grid container spacing={2}>
-                <Grid item>
-                  <Typography variant="h4" className={classes.displayNone}>
-                    You currently do not have any plants.
-                  </Typography>
-                </Grid>
-              </Grid>
-            );
-          } else {
-            return (
-              <>
-                <Grid container className={classes.contain}>
-                  <Grid container spacing={2} className={classes.gridStyling2}>
-                    <Grid item className={classes.container}>
-                      <img
-                        src={plant.image}
-                        alt="plant"
-                        className={classes.imgStyles}
-                      />
-                      <Typography variant="h5" className={classes.h5Styles}>
-                        {plant.nickname}
-                      </Typography>
-                      <Typography
-                        variant="subtitle1"
-                        className={classes.subtitle1Styles}
-                      >
-                        {plant.species_name}
-                      </Typography>
-                      <Typography
-                        variant="subtitle2"
-                        className={classes.subtitle2Styles}
-                      >
-                        Watering: {plant.frequency} {plant.interval_type_name}
-                      </Typography>
+      <Grid className={classes.background}>
+        <PlantNav />
+          <Grid className={classes.gridStyling}>
+              <Typography variant="h3" className={classes.h4Styles}>
+              My Plants
+              </Typography>
+          </Grid>
+          <Grid container className={classes.mainContainer}>
+          {props.plants &&
+              props.plants.map((plant) => {
+              // console.log("plantObject", plant);
+              if (props.plants.length === 0) {
+                  return (
+                  <Grid container spacing={2}>
                       <Grid item>
-                        <Button
-                          className={classes.buttonStyles}
-                          onClick={(e) =>
-                            handleMoreInfoClick(e, plant.plant_id)
-                          }
-                        >
-                          More Info
-                        </Button>
+                      <Typography variant="h4" className={classes.displayNone}>
+                          You currently do not have any plants.
+                      </Typography>
                       </Grid>
-                    </Grid>
                   </Grid>
-                </Grid>
-              </>
-            );
-          }
-        })}
-      <div>
-        <Button className={classes.buttonStyles} onClick={handleAddPlant}>
-          Add Plant
-        </Button>
-      </div>
+                  );
+              } else {
+                  return (
+                  <>
+                      <Grid container className={classes.contain}>
+                      <Grid container spacing={4} className={classes.gridStyling2}>
+                          <Grid item className={classes.container}>
+                          {/* <img
+                              src={plant.image}
+                              alt="plant"
+                              className={classes.imgStyles}
+                          /> */}
+                          <img
+                              src='https://images.unsplash.com/photo-1485955900006-10f4d324d411?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1504&q=80'
+                              alt="plant"
+                              className={classes.imgStyles}
+                          />
+                          <Typography variant="h5" className={classes.h5Styles}>
+                              {plant.nickname}
+                          </Typography>
+                          <Typography
+                              variant="subtitle1"
+                              className={classes.subtitle1Styles}
+                          >
+                              {plant.species_name}
+                          </Typography>
+                          <Typography
+                              variant="subtitle2"
+                              className={classes.subtitle2Styles}
+                          >
+                              Watering: {plant.frequency} {plant.interval_type_name}
+                          </Typography>
+                          <Grid item className={classes.buttonPlacement}>
+                              <Button
+                              className={classes.buttonStyles1}
+                              onClick={(e) =>
+                                  handleMoreInfoClick(e, plant.plant_id)
+                              }
+                              >
+                              More Info
+                              </Button>
+                          </Grid>
+                          </Grid>
+                      </Grid>
+                      </Grid>
+                  </>
+                  );
+              }
+              })}
+          </Grid>
+              <Grid container className={classes.buttonPlacement}>
+                  <Button className={classes.buttonStyles} onClick={handleAddPlant}>
+                  Add Plant
+                  </Button>
+              </Grid>
+          </Grid>
     </>
   );
 };
